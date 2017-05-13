@@ -159,57 +159,6 @@
     <article class="post">
         <header class="post-header">
             <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 13, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/13/RxSwift For Dummies Part1/">RxSwift For Dummies 🐣 Part1</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p><strong>RxSwift</strong> 真的是一个非常值得学习的东西。非常遗憾的是我没有研究所有的架构模式MVVM VIPER Routing。</p>
-<p>要非常好的讲出来RxSwift到底是个什么东西，我也说不好。毕竟他能做太多的事情了。普遍认为，他是函数响应式编程中非常重要的观察者模式。在最初的定义中,他并不就是函数响应式编程。他最初的设计灵感就是来自于函数响应式(<strong>FRP</strong>), 所以也可以说它包含了函数响应式的特性。</p>
-<p>如果你不知道什么是 <strong>FRP</strong> 的话, 不用担心, 在这个教程中你会自然而然的理解什么是 <strong>FRP</strong>。</p>
-<p>通过对 RXSwift 的深入研究, 我得到了很多的启发, 同时也被很多的问题困扰。相信你也会这样。</p>
-<p>需要花很多个小时的时间来适应新的思维模式，唯一能确定的是，一旦你适应了，你就再也不想回到从前了。</p>
-<p>在这个教程中，我会尽可能的节约你的时间，并且解释的尽可能的详细。想教幼儿园的小朋友一样。</p>
-<p>开始学习之前, 请确定你已经掌握了 Swift 和 UIkit 的基础知识. </p>
-<h3 id="The-Why"><a href="#The-Why" class="headerlink" title="The Why?"></a>The Why?</h3><p>写 UI 的时候经常会处理一些异步的操作。我们很早就知道要使用观察者模式来实现这个东西。我相信你现在已经非常熟悉代理模式了。代理模式是一种很酷的设计模式。但是写起来真的很烦😡。</p>
-<center><br><img src="http://swiftpearls.com/images/cry.jpg" alt=""><br></center>
-
-<ul>
-<li>代理模式需要些很多的模版代码: 创建一个协议, 声明一个 <code>delegate</code> 变量, 遵守协议, 设置代理…</li>
-<li>写完这么多模版代码,可能你不小心就忘了其中的某个步骤。 比如说 <code>object.delegete = self</code></li>
-<li>管理起来非常麻烦。他需要在好几个文件中跳跃。</li>
-</ul>
-<p>RxSwift 解决了这个问题。他能够让你通过声明的方式使用观察者模式。减少了管理的负担, 当然，也不用写那么多模版代码。</p>
-<p>我刚刚开始了一个项目，在这个项目中，至今还没有写一个 <code>delegate</code></p>
-<h3 id="Basic-Example"><a href="#Basic-Example" class="headerlink" title="Basic Example"></a>Basic Example</h3><p>talk is cheap, show you the code.</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleClass</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">runExample</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// OBSERVABLE //</span></div><div class="line">        <span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span></div><div class="line">            <span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">                <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">                observer.onNext(<span class="string">"Hello dummy 🐣"</span>)</div><div class="line">                observer.onCompleted()</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// OBSERVER //</span></div><div class="line">        </div><div class="line">        observable.subscribe(onNext:&#123; (element) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(element)</div><div class="line">        &#125;).addDisposableTo(disposeBag)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这就是最基本的例子, 在这个示例中, 我们声明了一个 runExample 方法。在这个方法中执行的是一些 RxSwift 中的事情。想一下在这个例子中发生了什么吧。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/13/RxSwift For Dummies Part1/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
                 <span>May 7, 2017</span>
             </div>
             <h1 class="post-title syuanpi riseIn-light back-2">
@@ -389,6 +338,57 @@
         
             <p class="content-link">
                 <a href="/2017/05/07/RxSwift For Dummies Part2/#more">
+                    <span class="iconfont icon-right">Read More...</span>
+                </a>
+            </p>
+        
+        </div>
+        
+    </article>
+    
+
+    
+        
+    <article class="post">
+        <header class="post-header">
+            <div class="post-time syuanpi riseIn-light back-1">
+                <span>May 6, 2017</span>
+            </div>
+            <h1 class="post-title syuanpi riseIn-light back-2">
+            
+                <a href="/2017/05/06/RxSwift For Dummies Part1/">RxSwift For Dummies 🐣 Part1</a>
+            
+            </h1>
+            
+        </header>
+        <div class="post-content syuanpi riseIn-light back-3">
+            
+                
+                    <p><strong>RxSwift</strong> 真的是一个非常值得学习的东西。非常遗憾的是我没有研究所有的架构模式MVVM VIPER Routing。</p>
+<p>要非常好的讲出来RxSwift到底是个什么东西，我也说不好。毕竟他能做太多的事情了。普遍认为，他是函数响应式编程中非常重要的观察者模式。在最初的定义中,他并不就是函数响应式编程。他最初的设计灵感就是来自于函数响应式(<strong>FRP</strong>), 所以也可以说它包含了函数响应式的特性。</p>
+<p>如果你不知道什么是 <strong>FRP</strong> 的话, 不用担心, 在这个教程中你会自然而然的理解什么是 <strong>FRP</strong>。</p>
+<p>通过对 RXSwift 的深入研究, 我得到了很多的启发, 同时也被很多的问题困扰。相信你也会这样。</p>
+<p>需要花很多个小时的时间来适应新的思维模式，唯一能确定的是，一旦你适应了，你就再也不想回到从前了。</p>
+<p>在这个教程中，我会尽可能的节约你的时间，并且解释的尽可能的详细。想教幼儿园的小朋友一样。</p>
+<p>开始学习之前, 请确定你已经掌握了 Swift 和 UIkit 的基础知识. </p>
+<h3 id="The-Why"><a href="#The-Why" class="headerlink" title="The Why?"></a>The Why?</h3><p>写 UI 的时候经常会处理一些异步的操作。我们很早就知道要使用观察者模式来实现这个东西。我相信你现在已经非常熟悉代理模式了。代理模式是一种很酷的设计模式。但是写起来真的很烦😡。</p>
+<center><br><img src="http://swiftpearls.com/images/cry.jpg" alt=""><br></center>
+
+<ul>
+<li>代理模式需要些很多的模版代码: 创建一个协议, 声明一个 <code>delegate</code> 变量, 遵守协议, 设置代理…</li>
+<li>写完这么多模版代码,可能你不小心就忘了其中的某个步骤。 比如说 <code>object.delegete = self</code></li>
+<li>管理起来非常麻烦。他需要在好几个文件中跳跃。</li>
+</ul>
+<p>RxSwift 解决了这个问题。他能够让你通过声明的方式使用观察者模式。减少了管理的负担, 当然，也不用写那么多模版代码。</p>
+<p>我刚刚开始了一个项目，在这个项目中，至今还没有写一个 <code>delegate</code></p>
+<h3 id="Basic-Example"><a href="#Basic-Example" class="headerlink" title="Basic Example"></a>Basic Example</h3><p>talk is cheap, show you the code.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleClass</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">runExample</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// OBSERVABLE //</span></div><div class="line">        <span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span></div><div class="line">            <span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">                <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">                observer.onNext(<span class="string">"Hello dummy 🐣"</span>)</div><div class="line">                observer.onCompleted()</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// OBSERVER //</span></div><div class="line">        </div><div class="line">        observable.subscribe(onNext:&#123; (element) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(element)</div><div class="line">        &#125;).addDisposableTo(disposeBag)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是最基本的例子, 在这个示例中, 我们声明了一个 runExample 方法。在这个方法中执行的是一些 RxSwift 中的事情。想一下在这个例子中发生了什么吧。</p>
+                    
+            
+        
+            <p class="content-link">
+                <a href="/2017/05/06/RxSwift For Dummies Part1/#more">
                     <span class="iconfont icon-right">Read More...</span>
                 </a>
             </p>
