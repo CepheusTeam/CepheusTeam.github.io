@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> RxSwift MVVM API Manual 📃 · CepheusTrans </title>
+    <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<link rel="stylesheet" href="/style/style.css">
+<script src="/script/jquery.min.js"></script>
+<script>
+    var CONFIG = {
+        title: "CepheusTrans",
+        author: "CepheusSun",
+        lightbox: true,
+        animate: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-inner"></div>
+</div>
+    <div class="body">
+    <div class="tagcloud" id="tagcloud">
+    <div class="tagcloud-inner">
+        <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
+    </div>
+</div>
+    <header class="header" id="header">
+    <div class="title syuanpi tvIn">
+    <div class="table">
+        <div class="connect">
+            <div class="connect-inner">
+                <span><a href="/">CepheusTrans</a></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <nav class="main-nav syuanpi tvIn">
+<div class="table">
+
+    <ul class="menu">
+        
+        
+            <li class="menu-item">
+                <a href="/">
+                    <span>Article</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/archives">
+                    <span>Archives</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="javascript:;" id="tags">
+                    <span>Tags</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/about">
+                    <span>About</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+    </ul>
+
+</div>
+</nav>
+<div class="mobile-nav"></div>
+</header>
+    <div class="container">
+        <main class="main" id="main">
+            
+    
+    <article class="post">
+        <header class="post-header">
+            <div class="post-time syuanpi riseIn-light back-1">
+                <span>May 7, 2017</span>
+            </div>
+            <h1 class="post-title syuanpi riseIn-light back-2">
+            
+                RxSwift MVVM API Manual 📃
+            
+            </h1>
+            
+                
+                    <div class="post-tags syuanpi riseIn-light back-3">
+                    
+                        <a href="/tags/iOS/">iOS</a>
+                    
+                        <a href="/tags/Reactive/">Reactive</a>
+                    
+                        <a href="/tags/Swift/">Swift</a>
+                    
+                        <a href="/tags/翻译/">翻译</a>
+                    
+                    </div>
+                
+            
+        </header>
+        <div class="post-content syuanpi riseIn-light back-3">
+            
+                <p>现在我们掌握了所有的工具, 也明确了他存在的风险以及规避的方法。现在是时候想想应该怎么样最大可能的运用它了。以 MVVM 为例。</p>
+<p>又很多方法来写 RxSwift 的 API。 我怕的做法是: 利用 RxSwift 很酷的观察者模式和很方便的操作符, 管理异步的任务。可能不是 100% 纯正的 RxSwift。 在将我做过很多的尝试试图将两种编程思维统一起来,但是我都失败了。</p>
+<p>下面是一些我使用 RxSwift 的方法。</p>
+<h3 id="Be-Consistent"><a href="#Be-Consistent" class="headerlink" title="Be Consistent"></a>Be Consistent</h3><p>这是在接口设计中最重要的事情, 如果你做出了选择。就坚持下去。</p>
+<p>既然如此, 现在就开始吧！<strong>input vs output</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FilterViewModel</span> </span>&#123;</div><div class="line">    <span class="comment">//Input</span></div><div class="line">    <span class="keyword">let</span> filterButtonEvents: <span class="type">BehaviorSubject</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    <span class="keyword">let</span> filterSelectionEvent: <span class="type">PublishSubject</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    </div><div class="line">    <span class="comment">//OutPut</span></div><div class="line">    <span class="keyword">let</span> currentFilter: <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    <span class="keyword">let</span> shouldShowFilter: <span class="type">Observable</span>&lt;<span class="type">Bool</span>&gt;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有好几个可以用来声明 inout 和 output 的组合。这是我最喜欢的一个。</p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>通过将 <code>input</code> 声明成 <code>subject</code> 类型。我可以很方便的使用 <code>RxSwift</code> 中的各种操作符。我用的最多的应该是 <strong>throttle</strong>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">filterButtonEvents</div><div class="line">    .throttle(<span class="number">0.5</span>, scheduler: <span class="type">MainScheduler</span>.instance)</div><div class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (counter) <span class="keyword">in</span></div><div class="line">    <span class="keyword">self</span>?.makeRequest()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>当然用 observable 做 input 也是可以的。</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>记住 <code>output</code> 应该是 <code>Observable</code>, 甚至是 <code>Subject</code>。 如果不这样的话，一些外部的类可能会错误的把这他当做是 <code>input</code> 这样就打破了封装了。当我想要发出一个变量的时候, 就是强制的释放。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(observable <span class="keyword">as</span>! <span class="type">PublishSubject</span>)</div><div class="line">    .onNext(<span class="string">"Ugly..."</span>)</div></pre></td></tr></table></figure>
+<p>如果你知道有更好的方法, 一定要告诉我。我感觉这么干是在是不优雅😱。</p>
+<h3 id="Safety"><a href="#Safety" class="headerlink" title="Safety"></a>Safety</h3><p>如果在一个简单的 Demo 中, 你可能记得做所有的细节。但在一个复杂的 app 中, 你几乎不可能记得住所有的实现细节。这里面可能有好几百个订阅者。 <code>Observable</code> 又是一个非常广泛的类型。都还没有说这个信号是热信号还是冷信号, 他是在主线程还是在后台线程中运行。这也是 <code>Driver</code> 被设计出来的原因, 为了让 API 更加明确。我们鼓励自己去创建一些单元。</p>
+<a id="more"></a>
+<p><strong>Driver</strong> 是一个热信号, 而且是运行在主线程当中的。好想忽略掉了冷信号？没关系, 创造一个就是了。我称他作 <strong>Template</strong> 因为冷信号就是是一个模版, 在这个模版中你可以用 <code>subscribe</code> 来运行他。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Template</span>&lt;<span class="title">Element</span>&gt; </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">Element</span>&gt;</div><div class="line">    </div><div class="line">    <span class="keyword">init</span>(<span class="number">_</span> subscribe: @escaping (<span class="type">AnyObserver</span>&lt;<span class="type">Element</span>&gt;) -&gt; <span class="type">Disposable</span>) &#123;</div><div class="line">        observable = <span class="type">Observable</span>.create(subscribe)</div><div class="line">            .subscribeOn(<span class="type">MainScheduler</span>.instance)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样 <code>Template</code> 就能确保是一个在主线程中执行的冷信号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class MyViewModel &#123;</div><div class="line"> //Cold ❄️</div><div class="line"> let createRequest : Template&lt;Int&gt;</div><div class="line"> //Hot 🌶</div><div class="line"> let shouldShowElement : Driver&lt;Bool&gt;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样看, 程序中暴露的接口就很明确了。</p>
+<h3 id="MVVM-State-Machine"><a href="#MVVM-State-Machine" class="headerlink" title="MVVM State Machine"></a>MVVM State Machine</h3><p>涉及到状态的管理的时候, <code>ViewController</code> 经常会变得很复杂。如果在 <code>viewModel</code> 中使用状态机, 来告诉 <code>ViewController</code> 在什么时候应该怎么做。<a href="http://curtclifton.net/generic-state-machine-in-swift" target="_blank" rel="external">这里有一篇不错的文章</a></p>
+<ul>
+<li>把这些状态放在一个枚举里面, 而不是分散在各个地方。这样做可以极大的减少你的 <code>Observable</code>。</li>
+<li>这也会强迫你吧更多的逻辑移到 <code>ViewModel</code> 里面。</li>
+<li>让你的代码更加的具有声明性。<br>👋</li>
+</ul>
+<p><a href="http://swiftpearls.com/mvvm-state-manage.html" target="_blank" rel="external">原文地址</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
+
+            
+        
+        </div>
+        
+            
+            
+        
+    </article>
+    
+        
+    <nav class="article-page">
+        
+            <a href="/2017/05/13/RxSwift For Dummies Part1/" id="art-left" class="art-right">
+                <span class="next-title">
+                    RxSwift For Dummies 🐣 Part1<i class="iconfont icon-right"></i> 
+                </span>
+            </a>
+        
+        
+            <a href="/2017/05/07/RxSwift Safety Manual/" id="art-right" class="art-left">
+                <span class="prev-title"> 
+                    <i class="iconfont icon-left"></i>RxSwift Safety Manual 📚
+                </span>
+            </a>
+        
+    </nav>
+
+        
+    
+
+
+        </main>
+        <footer class="footer syuanpi fadeIn" id="footer">
+    <hr>
+    <div class="footer-wrapper">
+        <div class="left">
+            <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+        </div>
+        <div class="right">
+            <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>1970 ~ 2017</span>
+        <span>❤</span>
+        <span>CepheusSun</span>
+    </div>
+    <div class="theme">
+        <span>
+            Powered by
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            Theme
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+</div>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="/script/nlvi.js"></script>
+
+    <script src="/lightbox/js/lightbox.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    document.body.addEventListener('touchstart', function () {});
+    $('.progress').hide();
+    $('.body').show();
+    Nlvi.tagcloud();
+    Nlvi.back2top();
+    Nlvi.showToc();
+    Nlvi.showComments();
+    Nlvi.showReward()
+
+    !CONFIG.animate && Nlvi.offAnimate();
+    CONFIG.lightbox && Nlvi.onPicBox();
+})
+</script>
+    </div>
+    
+        
+    
+    <div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+</body>
+</html>

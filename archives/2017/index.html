@@ -1,12 +1,335 @@
-extends partial/layout
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+  
+    Archives · CepheusTrans
+  
+</title>
+    <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-block container
-    include mixins/post
-    +postList()
 
-block pagination
-    include mixins/paginator
-    +home()
+<link rel="stylesheet" href="/style/style.css">
+<script src="/script/jquery.min.js"></script>
+<script>
+    var CONFIG = {
+        title: "CepheusTrans",
+        author: "CepheusSun",
+        lightbox: true,
+        animate: true
+    }
+</script>
 
-block copyright
-    include partial/copyright
+
+
+    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-inner"></div>
+</div>
+    <div class="body">
+    <div class="tagcloud" id="tagcloud">
+    <div class="tagcloud-inner">
+        <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
+    </div>
+</div>
+    <header class="header" id="header">
+    <div class="title syuanpi tvIn">
+    <div class="table">
+        <div class="connect">
+            <div class="connect-inner">
+                <span><a href="/">CepheusTrans</a></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <nav class="main-nav syuanpi tvIn">
+<div class="table">
+
+    <ul class="menu">
+        
+        
+            <li class="menu-item">
+                <a href="/">
+                    <span>Article</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/archives">
+                    <span>Archives</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="javascript:;" id="tags">
+                    <span>Tags</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/about">
+                    <span>About</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+    </ul>
+
+</div>
+</nav>
+<div class="mobile-nav"></div>
+</header>
+    <div class="container">
+        <main class="main" id="main">
+            
+    
+    <div class="archive syuanpi riseIn-light" id="archive">
+        
+            <h1 class="archive-title">Total</h1>
+            <span class="archive-num">7 Posts In Total</span>
+        
+        <div class="archive-list">
+            <ul>
+        
+            
+                
+                
+                
+                    
+                     
+                        <h2 class="archive-year"> 2017 </h2>
+                    
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-13
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/13/RxSwift For Dummies Part1/">RxSwift For Dummies 🐣 Part1</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-07
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/07/RxSwift MVVM API Manual/">RxSwift MVVM API Manual 📃</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-07
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/07/RxSwift Safety Manual/">RxSwift Safety Manual 📚</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-07
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/07/RxSwift For Dummies Part3/">RxSwift For Dummies 🐣 Part3</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-07
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/07/RxSwift For Dummies Part2/">RxSwift For Dummies 🐣 Part2</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-06
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/06/MVVM design pattern and RxSwift/">MVVM design pattern and RxSwift</a>
+                </span>
+            </li>
+
+        
+            
+                
+                
+                
+            
+            
+            <li class="archive-post">
+                <span class="archive-post-time">
+                
+                    05-05
+                
+                </span>
+                <span class="archive-post-link">
+                    <a href="/2017/05/05/RxSwift and the awesome things you can do with Reactive Programming — Part I/">RxSwift and the awesome things you can do with Reactive Programming — Part I</a>
+                </span>
+            </li>
+
+        
+            </ul>
+        </div>
+    </div>
+    
+    <nav class="pagination">
+        <span class="page-number current">1</span>
+    </nav>
+
+
+
+        </main>
+        <footer class="footer syuanpi fadeIn" id="footer">
+    <hr>
+    <div class="footer-wrapper">
+        <div class="left">
+            <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+        </div>
+        <div class="right">
+            <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>1970 ~ 2017</span>
+        <span>❤</span>
+        <span>CepheusSun</span>
+    </div>
+    <div class="theme">
+        <span>
+            Powered by
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            Theme
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+</div>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="/script/nlvi.js"></script>
+
+    <script src="/lightbox/js/lightbox.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    document.body.addEventListener('touchstart', function () {});
+    $('.progress').hide();
+    $('.body').show();
+    Nlvi.tagcloud();
+    Nlvi.back2top();
+    Nlvi.showToc();
+    Nlvi.showComments();
+    Nlvi.showReward()
+
+    !CONFIG.animate && Nlvi.offAnimate();
+    CONFIG.lightbox && Nlvi.onPicBox();
+})
+</script>
+    </div>
+    
+    <div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+</body>
+</html>

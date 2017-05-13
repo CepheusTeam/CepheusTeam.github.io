@@ -2,16 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://CepheusTeam.github.io/about/index.html</loc>
+    <loc>https://CepheusTeam.github.io/2017/05/06/MVVM%20design%20pattern%20and%20RxSwift/</loc>
     
-    <lastmod>2017-05-13T03:57:19.000Z</lastmod>
+    <lastmod>2017-05-13T04:13:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://CepheusTeam.github.io/2017/05/13/hello-world/</loc>
+    <loc>https://CepheusTeam.github.io/2017/05/13/RxSwift%20For%20Dummies%20Part1/</loc>
     
-    <lastmod>2017-05-12T19:57:52.000Z</lastmod>
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20For%20Dummies%20Part2/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20For%20Dummies%20Part3/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20MVVM%20API%20Manual/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20Safety%20Manual/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/05/RxSwift%20and%20the%20awesome%20things%20you%20can%20do%20with%20Reactive%20Programming%E2%80%8A%E2%80%94%E2%80%8APart%20I/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/about/index.html</loc>
+    
+    <lastmod>2017-05-13T03:57:19.000Z</lastmod>
     
   </url>
   

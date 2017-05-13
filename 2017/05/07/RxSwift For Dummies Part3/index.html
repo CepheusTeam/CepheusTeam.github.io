@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> RxSwift For Dummies 🐣 Part3 · CepheusTrans </title>
+    <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<link rel="stylesheet" href="/style/style.css">
+<script src="/script/jquery.min.js"></script>
+<script>
+    var CONFIG = {
+        title: "CepheusTrans",
+        author: "CepheusSun",
+        lightbox: true,
+        animate: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-inner"></div>
+</div>
+    <div class="body">
+    <div class="tagcloud" id="tagcloud">
+    <div class="tagcloud-inner">
+        <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
+    </div>
+</div>
+    <header class="header" id="header">
+    <div class="title syuanpi tvIn">
+    <div class="table">
+        <div class="connect">
+            <div class="connect-inner">
+                <span><a href="/">CepheusTrans</a></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <nav class="main-nav syuanpi tvIn">
+<div class="table">
+
+    <ul class="menu">
+        
+        
+            <li class="menu-item">
+                <a href="/">
+                    <span>Article</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/archives">
+                    <span>Archives</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="javascript:;" id="tags">
+                    <span>Tags</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/about">
+                    <span>About</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+    </ul>
+
+</div>
+</nav>
+<div class="mobile-nav"></div>
+</header>
+    <div class="container">
+        <main class="main" id="main">
+            
+    
+    <article class="post">
+        <header class="post-header">
+            <div class="post-time syuanpi riseIn-light back-1">
+                <span>May 7, 2017</span>
+            </div>
+            <h1 class="post-title syuanpi riseIn-light back-2">
+            
+                RxSwift For Dummies 🐣 Part3
+            
+            </h1>
+            
+                
+                    <div class="post-tags syuanpi riseIn-light back-3">
+                    
+                        <a href="/tags/iOS/">iOS</a>
+                    
+                        <a href="/tags/Reactive/">Reactive</a>
+                    
+                        <a href="/tags/Swift/">Swift</a>
+                    
+                        <a href="/tags/翻译/">翻译</a>
+                    
+                    </div>
+                
+            
+        </header>
+        <div class="post-content syuanpi riseIn-light back-3">
+            
+                <p>好了, 接下来是第三个部分。<strong>Subjects</strong></p>
+<p>学了之前内容. 我们可能已经发现了。之前学习的内容都是 <code>Observables</code> 输出事件的部分。我们可以订阅他, 就能知道他输出的事件了。但是我们还不能改变他。</p>
+<p><strong>Subject</strong> 也是一个 <code>Observable</code> 但是他是能够同时输入和输出的。也就是说, 我们可以动态(强制)的在一个序列中发出信号。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="comment">// 可以直接转换，因为他也是一个 `Observable`</span></div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line">observable.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line"><span class="comment">// 只要你想发出一个新的事件, 就可以用 onNext 方法 </span></div><div class="line">subject.onNext(<span class="string">"Hey!"</span>)</div><div class="line">subject.onNext(<span class="string">"I'm back!"</span>)</div></pre></td></tr></table></figure>
+<p><strong>onNext</strong> 是一个输出事件的方法。最后控制台会输出</p>
+<blockquote>
+<p>“Hey!”<br>“I’m back!”</p>
+</blockquote>
+<p><code>Subject</code> 到底有什么用呢? 为了很轻松的将 Rxswift 中声明式的世界和我们平常的世界连接起来。让我们在需要写实现式的代码的时候更 Rx </p>
+<p>在一个纯正的 Rx 的世界里。当你需要有一个更完美的流的时候, 不用去管这个 <code>Observable</code> 是怎么实现的。这个东西我会另外的解释。反正, 如果你需要， 大胆的用吧。</p>
+<p>上面式关于 Subject 最基本的内容。接下来我们学习一下怎么更好的使用 <strong>Subject</strong></p>
+<h3 id="Hot🔥-vs-Cold❄️"><a href="#Hot🔥-vs-Cold❄️" class="headerlink" title="Hot🔥 vs Cold❄️"></a>Hot🔥 vs Cold❄️</h3><p>在第一篇文章中就已经提到过了热信号🔥和冷信号❄️。今天我们在深入的了解一点吧，因为 <strong>Subject</strong> 实际上是我们第一次接触到真正的热信号。</p>
+<p>我们一定确定了，当我们使用 <strong>create</strong> 创建一个 <strong>Observable</strong> 的时候, 由于没有人订阅他，所以她是不会发送消息的。只有被 <strong>subscribe</strong>(订阅)之后才会开始发送消息出来。这就是我们叫它为冷信号❄️的原因。如果很不幸你忘了这个知识点。你可以回到第一篇文章去看看。热信号🔥 就是那种即使没有被订阅也会发出消息的信号, 这也是 <code>subject</code> 做的事情。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line"><span class="comment">// 这个信号还没有被订阅, 所以这个值不回被接受到</span></div><div class="line">subject.onNext(<span class="string">"Am I too early for the party?"</span>)</div><div class="line"></div><div class="line">observable</div><div class="line">    .subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(text)</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div><div class="line"><span class="comment">// 这个值发出来的时候已经有一个订阅者了, 所以这个值会打印出来</span></div><div class="line">subject.onNext(<span class="string">"🎉🎉🎉"</span>)</div></pre></td></tr></table></figure>
+<p>很简单直接吧。如果在第一篇中你理解了冷信号的话, 理解热信号也是很自然的事情。</p>
+<h3 id="Subject-Types"><a href="#Subject-Types" class="headerlink" title="Subject Types"></a>Subject Types</h3><p>常用的 <code>Subject</code> 有三种。 他们其实都差不多, 唯一的区别就是: 在订阅之前, 它会干什么。</p>
+<a id="more"></a>
+<h4 id="Publish-Subject"><a href="#Publish-Subject" class="headerlink" title="Publish Subject"></a>Publish Subject</h4><p>在上面的例子中已经说到了。 <strong>PublishSubject</strong> 会忽略掉在订阅之前发出来的信号。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line">subject.onNext(<span class="string">"Ignored..."</span>)</div><div class="line">observable.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line">subject.onNext(<span class="string">"Printed!"</span>)</div></pre></td></tr></table></figure>
+<p>当你只关注你订阅之后发生了什么的时候, 就可以使用 <code>PublishSubject</code></p>
+<h4 id="Replay-Subjects"><a href="#Replay-Subjects" class="headerlink" title="Replay Subjects"></a>Replay Subjects</h4><p><strong>ReplaySubject</strong> 会将最后 n 个值发出来, 即使是订阅发生之前的值。 这个 n 个值被被放在一个环从区里面。在这个例子中会缓有 3 个值被保留。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">ReplaySubject</span>&lt;<span class="type">String</span>&gt;.create(bufferSize: <span class="number">3</span>)</div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line"></div><div class="line">subject.onNext(<span class="string">"Not printed!"</span>)</div><div class="line">subject.onNext(<span class="string">"Printed"</span>)</div><div class="line">subject.onNext(<span class="string">"Printed!"</span>)</div><div class="line">subject.onNext(<span class="string">"Printed!"</span>)</div><div class="line"></div><div class="line">observable.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line">subject .onNext(<span class="string">"Printed!"</span>)</div></pre></td></tr></table></figure>
+<p>当我们需要知道订阅之前发生了什么的时候, 我们就需要使用 <code>ReplaySubject</code> 了。</p>
+<h4 id="Behavior-Subject"><a href="#Behavior-Subject" class="headerlink" title="Behavior Subject"></a>Behavior Subject</h4><p><strong>BehaviorSubject</strong> 只会重复最后一个值。 更其他的 Subject 的同， 他在创建的时候就需要给定一个初始值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">BehaviorSubject</span>&lt;<span class="type">String</span>&gt;(value: <span class="string">"Initial value"</span>)</div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line"></div><div class="line">subject.onNext(<span class="string">"Not printed!"</span>)</div><div class="line">subject.onNext(<span class="string">"Not printed!"</span>)</div><div class="line">subject.onNext(<span class="string">"Printed!"</span>)</div><div class="line"></div><div class="line">observable.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line">subject.onNext(<span class="string">"Printed!"</span>)</div></pre></td></tr></table></figure>
+<p>当你只需要知道最后一个值的时候。就需要使用 <code>BehaviorSubject</code></p>
+<h3 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h3><p>你可以把一个 <code>Observable</code> 和 <code>Subject</code> 绑定到一起。也就是说可以让这个 <code>Observable</code> 将它的序列里的所有值都发送给这个 <code>Subject</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.just(<span class="string">"I'm being passed around 😲"</span>)</div><div class="line">subject.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line"></div><div class="line">observable.subscribe &#123; (event) <span class="keyword">in</span></div><div class="line">    subject.on(event)</div><div class="line">&#125;.addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
+<p>有一个语法糖来简化这些代码。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.just(<span class="string">"I'm being passed around 😲"</span>)</div><div class="line">subject.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line"></div><div class="line">observable.bind(to: subject).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>I’m being passed around 😲</p>
+</blockquote>
+<p><strong>Warning</strong></p>
+<p>Binding 不仅仅会传递值, 他也会把完成和错误都传递过来。这种情况下这个 <code>Subject</code> 就会被释放。</p>
+<h3 id="Quick-Example"><a href="#Quick-Example" class="headerlink" title="Quick Example"></a>Quick Example</h3><p>还是把第一篇文章中的 Demo 稍微修改一下吧。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"><span class="keyword">import</span> RxCocoa</div><div class="line"><span class="keyword">import</span> RxSwift</div><div class="line"></div><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">GoogleModel</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> googleString = <span class="type">BehaviorSubject</span>&lt;<span class="type">String</span>&gt;(value: <span class="string">""</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fetchNetString</span><span class="params">()</span></span>  &#123;</div><div class="line">        <span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">            <span class="keyword">let</span> session = <span class="type">URLSession</span>.shared</div><div class="line">            <span class="keyword">let</span> task = session.dataTask(with: <span class="type">URL</span>(string: <span class="string">"https://www.google.com"</span>)!, completionHandler: &#123; (data, response, error) <span class="keyword">in</span></div><div class="line">                </div><div class="line">                <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> err = error &#123;</div><div class="line">                        observer.onError(err)</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        <span class="keyword">let</span> googleString = <span class="type">NSString</span>(data: data!, encoding: <span class="number">1</span>) <span class="keyword">as</span> <span class="type">String</span>?</div><div class="line">                        </div><div class="line">                        observer.onNext(googleString!)</div><div class="line">                        observer.onCompleted()</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">            task.resume()</div><div class="line">            <span class="keyword">return</span> <span class="type">Disposables</span>.create&#123;</div><div class="line">                task.cancel()</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// Bind the observable to the subject</span></div><div class="line">        observable.bind(to: googleString).addDisposableTo(disposeBag)</div><div class="line">    &#125;</div><div class="line">&#125;        </div><div class="line"><span class="comment">// Bind the observable to the subject</span></div><div class="line">observable.bind(to: googleString).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
+<p>可以看到，在这个例子中，我们有一个视图模型将 <code>googleString</code> 这个 <code>subject</code> 暴露出来。让 <code>ViewController</code> 能够订阅。我们将这个 <code>observable</code> 绑定到这个 <code>subject</code> 上, 这样我们就可以在网络请求有结果的时候, 立马将请求结果传递到这给 <code>subject</code>。</p>
+<h3 id="Bonus-Variable"><a href="#Bonus-Variable" class="headerlink" title="Bonus: Variable"></a>Bonus: Variable</h3><p>距离完完全全的 Rx 还差最后一点了。强行的获取之前发送出来的值。</p>
+<p>这就是为什么会有 <strong>Variable</strong> 这个东西了。Variable 是对 BehaviorSubject 的简单包装。<a href="https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Subjects/Variable.swift" target="_blank" rel="external">可以看一下</a> 它的实现是非常简单的。但它却非常的方便。</p>
+<p>还是用一个小例子来说明这个问题吧。在这个例子中, 我们需要在任何时间都可以得到 “googleString” “当前” 的值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> googleString = <span class="type">Variable</span>(<span class="string">"currentString"</span>)</div><div class="line"><span class="comment">// get</span></div><div class="line"><span class="built_in">print</span>(googleString.value)</div><div class="line"><span class="comment">// set</span></div><div class="line">googleString.value = <span class="string">"newString"</span></div><div class="line"><span class="comment">// 订阅</span></div><div class="line">googleString.asObservable().subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
+<p>你一定会爱上他的。这基本上就是 <strong>RxSwift</strong> 的简单模式了。</p>
+<p>看起来很简单吧，但是别忘了，还是有很多的坑的。还是小心为上。下一篇文章我会讲讲: 怎么写 Rxswift 最保险。</p>
+<h3 id="That’s-it"><a href="#That’s-it" class="headerlink" title="That’s it!"></a>That’s it!</h3><p>你知道了太多了。剩下的就是 <code>Subjects</code> 了</p>
+<p><a href="http://swiftpearls.com/RxSwift-for-dummies-3-Subjects.html" target="_blank" rel="external">原文地址</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
+
+            
+        
+        </div>
+        
+            
+            
+        
+    </article>
+    
+        
+    <nav class="article-page">
+        
+            <a href="/2017/05/07/RxSwift Safety Manual/" id="art-left" class="art-right">
+                <span class="next-title">
+                    RxSwift Safety Manual 📚<i class="iconfont icon-right"></i> 
+                </span>
+            </a>
+        
+        
+            <a href="/2017/05/07/RxSwift For Dummies Part2/" id="art-right" class="art-left">
+                <span class="prev-title"> 
+                    <i class="iconfont icon-left"></i>RxSwift For Dummies 🐣 Part2
+                </span>
+            </a>
+        
+    </nav>
+
+        
+    
+
+
+        </main>
+        <footer class="footer syuanpi fadeIn" id="footer">
+    <hr>
+    <div class="footer-wrapper">
+        <div class="left">
+            <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+        </div>
+        <div class="right">
+            <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>1970 ~ 2017</span>
+        <span>❤</span>
+        <span>CepheusSun</span>
+    </div>
+    <div class="theme">
+        <span>
+            Powered by
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            Theme
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+</div>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="/script/nlvi.js"></script>
+
+    <script src="/lightbox/js/lightbox.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    document.body.addEventListener('touchstart', function () {});
+    $('.progress').hide();
+    $('.body').show();
+    Nlvi.tagcloud();
+    Nlvi.back2top();
+    Nlvi.showToc();
+    Nlvi.showComments();
+    Nlvi.showReward()
+
+    !CONFIG.animate && Nlvi.offAnimate();
+    CONFIG.lightbox && Nlvi.onPicBox();
+})
+</script>
+    </div>
+    
+        
+    
+    <div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+</body>
+</html>

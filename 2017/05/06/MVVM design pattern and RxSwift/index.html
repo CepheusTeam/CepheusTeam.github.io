@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> MVVM design pattern and RxSwift · CepheusTrans </title>
+    <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<link rel="stylesheet" href="/style/style.css">
+<script src="/script/jquery.min.js"></script>
+<script>
+    var CONFIG = {
+        title: "CepheusTrans",
+        author: "CepheusSun",
+        lightbox: true,
+        animate: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-inner"></div>
+</div>
+    <div class="body">
+    <div class="tagcloud" id="tagcloud">
+    <div class="tagcloud-inner">
+        <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
+    </div>
+</div>
+    <header class="header" id="header">
+    <div class="title syuanpi tvIn">
+    <div class="table">
+        <div class="connect">
+            <div class="connect-inner">
+                <span><a href="/">CepheusTrans</a></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <nav class="main-nav syuanpi tvIn">
+<div class="table">
+
+    <ul class="menu">
+        
+        
+            <li class="menu-item">
+                <a href="/">
+                    <span>Article</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/archives">
+                    <span>Archives</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="javascript:;" id="tags">
+                    <span>Tags</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+        
+            <li class="menu-item">
+                <a href="/about">
+                    <span>About</span>
+                    
+                    
+                </a>
+            </li>
+        
+        
+    </ul>
+
+</div>
+</nav>
+<div class="mobile-nav"></div>
+</header>
+    <div class="container">
+        <main class="main" id="main">
+            
+    
+    <article class="post">
+        <header class="post-header">
+            <div class="post-time syuanpi riseIn-light back-1">
+                <span>May 6, 2017</span>
+            </div>
+            <h1 class="post-title syuanpi riseIn-light back-2">
+            
+                MVVM design pattern and RxSwift
+            
+            </h1>
+            
+                
+                    <div class="post-tags syuanpi riseIn-light back-3">
+                    
+                        <a href="/tags/iOS/">iOS</a>
+                    
+                        <a href="/tags/Reactive/">Reactive</a>
+                    
+                        <a href="/tags/Swift/">Swift</a>
+                    
+                        <a href="/tags/翻译/">翻译</a>
+                    
+                        <a href="/tags/设计模式/">设计模式</a>
+                    
+                    </div>
+                
+            
+        </header>
+        <div class="post-content syuanpi riseIn-light back-3">
+            
+                <p>本文翻译自(<a href="http://lukagabric.com/mvvm-design-pattern-and-rxswift/" target="_blank" rel="external">http://lukagabric.com/mvvm-design-pattern-and-rxswift/</a>)</p>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>MVVM 是一种设计模式。他是程序的代码分离成三个部分: <code>Model</code>、<code>View</code>、<code>ViewModel</code>。 <code>Model</code> 代表数据的表现, <code>View</code> 代表用户看到的界面，<code>ViewModel</code> 代表着模型层和视图层的主要关联关系。</p>
+<h4 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h4><p><code>Model</code> 就是数据层。他包括一定范围内的模型，和业务逻辑。 <code>Model</code> 并不只是你程序中的那些模型结构体或者数据库, 他也包含了一些 Service 或者组件, 比如说 <code>Alamofire</code>和一些 SDK 等等。</p>
+<p><code>Model</code> 层执行所有跟数据有关的操作。比如常见的增删改查等等。这些操作由 <code>ViewModel</code> 发起。当 <code>Model</code>操作完了数据之后它再告诉 <code>ViewModel</code> 结果。</p>
+<p><code>Model</code> 被 ViewModel 持有。他也并不知道视图层和 <code>ViewModel</code> 层的事情。因为他是和这两个东西完全隔离开的。</p>
+<h4 id="View"><a href="#View" class="headerlink" title="View"></a>View</h4><p><code>View</code> 是程序中数据的可视化展示。它没有逻辑相关的东西。他主要有接受用户交互事件，和将数据展示在界面上两个人物。它将用户交互的事件转发到 <code>ViewModel</code> 中进行处理。<code>View</code> 观察 <code>ViewModel</code> 中数据的变化, 并且将这些变化展现出来。</p>
+<p><code>View</code> 和 <code>Model</code> 之间没有任何直接的关联。 他们通过 <code>View</code> 持有的 <code>ViewModel</code> 产生关联。</p>
+<p>界面信息在 <code>xib</code> 或者 <code>StoryBoard</code> 中通过 <code>UIKit</code> 中的组件被定义。<code>ViewController</code> 是直接跟 <code>xib</code> 或者 <code>StoryBoard</code> 关联的。它包含了 <code>Xib</code> 或者 <code>StoryBoard</code> 中的 <code>outlets</code> 和一些定义 UI 的额外配置。他也负责管理 <code>View</code> 的生命周期。 在 MVVM 中他和 <code>View</code> 的关联是非常紧密的, 他其实就是 <code>View</code> 层的一部分。</p>
+<h4 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h4><p><code>ViewModel</code> 是程序的逻辑层。他处理用户交互行为。然后更新数据。然后在通知 <code>View</code> 新的数据和显示的方式。举一个很平常的例子。一个 ViewModel 从Model层中请求到了一些包含 <code>Date</code> 的模型。 这个 Date 值并不会被告诉给 View, ViewModel 告诉 View 的应该是被格式化之后的字符串。视图不会操作数据本身，他只负责将 ViewModel 准备好的数据展示出来。</p>
+<h4 id="Similar-to-MVC"><a href="#Similar-to-MVC" class="headerlink" title="Similar to MVC"></a>Similar to MVC</h4><p>在 MVC 设计模式中, <code>ViewController</code> 是 <code>Model</code> 和 <code>View</code> 之间的桥梁。他只有视图, 管理视图的结构，管理用户的交互。他还负责管理视图的生命周期,加载、显示、消失等。他具有的另外一个指责是更新模型数据, 这就包括了显示数据的相关逻辑(也就是数据的处理,如上文提到的讲 <code>Date</code> 转化成 <code>String</code> 的逻辑)。因为他具有这么多的职责，所以很多情况下 <code>Viewcontroller</code> 就会变的非常大。所以也有人称MVC 为 Massive View Controller</p>
+<p>出现复杂的 <code>viewController</code> 主要有两个原因。由于 <code>Controller</code> 有很多的职责。代码就会变的非常的复杂。这很明显就违背了单一职责这个原则。这也让测试 <code>Controller</code> 中的逻辑变成一件很麻烦的事情。<code>Controller</code> 和 <code>View</code> 的高度耦合。<code>view</code> 的生命周期使得逻辑的分离变的不那么容易。我们就需要花很大的精力来处理视图的生命周期。</p>
+<p>MVVM 和 MVC 非常相似。 正如前文所说。 MVC 中的 <code>Controller</code> 同时包含了视图和程序的逻辑。将逻辑相关的代码从 <code>Controller</code> 中分离出来, 放到他自己抽象出来的类里面去。这时候的 <code>Controller</code>就只关注视图相关的事情。刚刚分离出来的这个类处理相关的逻辑。这个类就是 ViewModel。他和 <code>Controller</code> 具有一一对应关系。所以说 MVVM 就是将逻辑代码从 <code>controller</code>中分离到 <code>ViewModel</code> 中的 MVC</p>
+<h4 id="Binding-data-from-ViewModel-to-View"><a href="#Binding-data-from-ViewModel-to-View" class="headerlink" title="Binding data from ViewModel to View"></a>Binding data from ViewModel to View</h4><p>有很多将数据绑定的机制, 比如 Swift 中的属性观察。视图可以对外提供一个 Closure 来进行视图的更新。这个 Closure 用来通知 View 他关联的属性的更新。除了熟悉观察。我们的程序还经常需要处理各种异步操作，比如网络请求，和通知或者事件的流信息。函数响应式编程(FRP)框架简直就是为了处理这类事件而生的。现在也有很多FRP 框架，对 iOS 开发来说，最出名的应该是 <code>RxSwift</code> 和 <code>ReactiveCocoa</code>了。之前在一篇对比文章中有提到过, 不管怎样，我更喜欢 <code>RxSwift</code> </p>
+<h3 id="RxSwift"><a href="#RxSwift" class="headerlink" title="RxSwift"></a>RxSwift</h3><p>指令式编程是基于一步一步明确的指令来执行的。他详细的描述了程序的运行过程。值做为状态而存在。由于程序是一步一步的执行的,所以如果其中一个值在之后发生了改变，这一改变也不会被传到下一步。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 指令式编程</span></div><div class="line">a = <span class="number">1</span></div><div class="line">b = <span class="number">2</span></div><div class="line"><span class="built_in">c</span> = a + b  <span class="comment">// c = 3</span></div><div class="line">a = <span class="number">5</span>   <span class="comment">// c = 3</span></div></pre></td></tr></table></figure>
+<p>响应式编程,跟指令式相反。他是基于变化的。他基于声明式编程，这就意味着他关注的是程序应该完成什么，而不是程序是怎么运行的。它是通过数学运算和其他像是 <code>filter</code> <code>map</code> <code>reduce</code> 之类的运算操作的运用来实现的。如何准确的运行被交给底层的程序语言或者框架来考虑了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 响应式编程</span></div><div class="line">a = <span class="number">1</span></div><div class="line">b = <span class="number">2</span></div><div class="line"><span class="built_in">c</span> = a + b <span class="comment">// c = 3</span></div><div class="line">a = <span class="number">5</span>     <span class="comment">// c = 7</span></div></pre></td></tr></table></figure>
+<p>RxSwift 让你能用通过函数响应式编程来编写你的代码。使用 RxSwift 可以很轻松的创建事件或者数据流。这些事件或者数据流可以互相组合、转换。并且最终被观察到，基于值来进行一些操作。</p>
+<p>正如前文所说，在 MVVM 中 View 观察 ViewModel 中模型的数据。RxSwift 提供了一个非常简单并且干净的方法来观察这些值，并绑定到对应的 View 上。</p>
+<a id="more"></a>
+<h4 id="Observable"><a href="#Observable" class="headerlink" title="Observable"></a>Observable</h4><p>Observable 是 RxSwift 的主要构成部分。他是一个可以异步的接受元素的序列。这个序列可以有0个或者很多个的元素。有三种事件能够基于它发生。下一步(Next)、完成(Completed)、错误(Error)</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Event</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> next(<span class="type">Element</span>)   <span class="comment">// 这个序列的下一个元素</span></div><div class="line">    <span class="keyword">case</span> error(<span class="type">Swift</span>.<span class="type">Error</span>)<span class="comment">// 这个序列发生了错误</span></div><div class="line">    <span class="keyword">case</span> completed      <span class="comment">// 这个序列成功的完成的所有人任务</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以使用 <code>Observable</code> 的 <code>subscribe</code> 方法来订阅这些事件。 用这种方法可以分别处理这个事件的各种情况。</p>
+<ul>
+<li>OnNext: 可以使用被订阅的元素值。</li>
+<li>OnCompleted: 当这个序列成功的发送完所有元素之后会被调用。</li>
+<li>OnError: 当这个序列不能完成的时候被调用。</li>
+</ul>
+<p>只要 <code>Complete</code> 或者 <code>Error</code> 被观察到了, 这个序列就不能产生任何新的元素了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">observable.subscribe(</div><div class="line">    onNext: &#123; element <span class="keyword">in</span> ... &#125;, </div><div class="line">    onError: &#123; error <span class="keyword">in</span> ... &#125;,</div><div class="line">    onCompleted: &#123; ... &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<h4 id="Hot-and-cold-observables"><a href="#Hot-and-cold-observables" class="headerlink" title="Hot and cold observables"></a>Hot and cold observables</h4><p>即使没有被观察也会发送消息的信号被称作热信号。想象一下 <code>NotificationCenter</code> 技术没有其他对象接受通知, 也也然会发送出来。如果你在某个时候订阅了这个信号, 之前发出来的消息你就会错过。</p>
+<p>那些只有被订阅之后才开始发送消息的信号被称作冷信号。这些资源会被分配给每个订阅对象。(比如说，你每次订阅的网络请求就会被释放)但是这些资源可以被多个对象共享(只有一个网络请求被释放了,但可能这被很多个观察者订阅)</p>
+<h4 id="Driver"><a href="#Driver" class="headerlink" title="Driver"></a>Driver</h4><p>Driver 是 RxCocoa 框架中的一个值类型。它是对一个可订阅的序列的封装，如果要把一个简单的值绑定到View上, 它会是一个更简单的方法。如果 <code>Observables</code> 发生了错误, 你需要很方便的将一些东西展示出来。每个信号都可以很容易的被转换成 <code>Driver</code>。 当你提供了这个信号发生错误的返回什么的时候，只需要使用 <code>asDriver</code> 方法就可以了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.asDriver(onErrorJustReturn: <span class="string">"No items to display."</span>)</div></pre></td></tr></table></figure>
+<p>想象一下异步操作的场景。比如说网络请求。我们需要在界面上展示返回值的个数。在这个场景中，我们需要将返回值的个数映射成一个字符串。可能这个字符串的格式可能是 <code>&quot;X item(s)&quot;</code> <code>Driver</code> 还能够确保我们需要修改 UI 的这个订阅是发生在主线程当中的。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> results: <span class="type">Observable</span>&lt;[<span class="type">SomeItem</span>]&gt; = ...</div><div class="line"><span class="keyword">let</span> resultsCountDriver = results</div><div class="line">    .<span class="built_in">map</span> &#123; <span class="string">"<span class="subst">\($<span class="number">0</span>.<span class="built_in">count</span>)</span> item(s)"</span> &#125;</div><div class="line">    .asDriver(onErrorJustReturn: <span class="string">"No items to display."</span>)</div></pre></td></tr></table></figure>
+<p>把这个数据绑定到 Label 中就很简单了</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">resultsCountDriver.drive(resultCountLabel.rx.text).disposed(by: disposeBag)</div></pre></td></tr></table></figure>
+<h4 id="DisposeBag"><a href="#DisposeBag" class="headerlink" title="DisposeBag"></a>DisposeBag</h4><p>如果一个序列停止了, 但是它并没有被释放掉。在他就会造成资源的浪费和内存的泄漏。知道他完成了或者处错了。如果一个序列没有停止，也没有出错，这个资源就会被永久的占用。这就是为什么我们要在需要订阅的对象中生命一个 <code>DisposeBag</code> 的成员变量的原因了。这样的话，只要这个对象呗释放掉了，所有相关的资源都会被释放并且被系统回收。</p>
+<h4 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h4><p><code>Variable</code>表示可以被订阅的状态。它是信号和功能范式之间的桥梁。<code>Variable</code> 总是包含了提供给构造函数的初始值当你订阅当前的值的时候，这个初始值会立马被发送到过来。(只有最新和当前值会被发出，旧的值不会)。也可以直接获取或者设置 <code>Variable</code> 的值。他内部的信号可以通过 <code>asObservable</code> 方法获取到。另外, <code>Variable</code> 永远都不会出错。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> variable = <span class="type">Variable</span>(<span class="string">"My Variable"</span>)</div><div class="line">variable.value = <span class="string">"Some value"</span></div><div class="line"><span class="keyword">let</span> variableObservable = variable.asObservable()</div><div class="line">variableObservable.subscribe(onNext: &#123; value <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(value) <span class="comment">//prints "Some value"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>最后， 我写了一个 Demo 来演示 MVVM + RxSwift. 这是一个简单的程序获取并且显示天气的数据。这个app有三种状态， 加载中，显示中，错误。有两种对错误的处理，一是，我们只显示错误。另一个是显示之前的数据。如果没有，就显示错误。这两种处理方式都是通过响应式编程和指令式编程实现的。</p>
+<p>在这些例子中，只有 ViewMoel 会发生改变。你可以看到给功能增加复杂性(显示错误或者旧的数据)。如果使用指令式编程，可能会对代码带来很多的变动。而使用响应式编程，只需要增加额外的状态而已。</p>
+
+            
+        
+        </div>
+        
+            
+            
+        
+    </article>
+    
+        
+    <nav class="article-page">
+        
+            <a href="/2017/05/07/RxSwift For Dummies Part2/" id="art-left" class="art-right">
+                <span class="next-title">
+                    RxSwift For Dummies 🐣 Part2<i class="iconfont icon-right"></i> 
+                </span>
+            </a>
+        
+        
+            <a href="/2017/05/05/RxSwift and the awesome things you can do with Reactive Programming — Part I/" id="art-right" class="art-left">
+                <span class="prev-title"> 
+                    <i class="iconfont icon-left"></i>RxSwift and the awesome things you can do with Reactive Programming — Part I
+                </span>
+            </a>
+        
+    </nav>
+
+        
+    
+
+
+        </main>
+        <footer class="footer syuanpi fadeIn" id="footer">
+    <hr>
+    <div class="footer-wrapper">
+        <div class="left">
+            <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+        </div>
+        <div class="right">
+            <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>1970 ~ 2017</span>
+        <span>❤</span>
+        <span>CepheusSun</span>
+    </div>
+    <div class="theme">
+        <span>
+            Powered by
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            Theme
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+</div>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="/script/nlvi.js"></script>
+
+    <script src="/lightbox/js/lightbox.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    document.body.addEventListener('touchstart', function () {});
+    $('.progress').hide();
+    $('.body').show();
+    Nlvi.tagcloud();
+    Nlvi.back2top();
+    Nlvi.showToc();
+    Nlvi.showComments();
+    Nlvi.showReward()
+
+    !CONFIG.animate && Nlvi.offAnimate();
+    CONFIG.lightbox && Nlvi.onPicBox();
+})
+</script>
+    </div>
+    
+        
+    
+    <div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+</body>
+</html>
