@@ -532,7 +532,7 @@
     <link href="https://CepheusTeam.github.io/2017/05/06/MVVM%20design%20pattern%20and%20RxSwift/"/>
     <id>https://CepheusTeam.github.io/2017/05/06/MVVM design pattern and RxSwift/</id>
     <published>2017-05-05T17:35:57.000Z</published>
-    <updated>2017-05-13T04:13:38.000Z</updated>
+    <updated>2017-05-13T04:14:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文翻译自(<a href="http://lukagabric.com/mvvm-design-pattern-and-rxswift/" target="_blank" rel="external">http://lukagabric.com/mvvm-design-pattern-and-rxswift/</a>)</p>
 <h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>MVVM 是一种设计模式。他是程序的代码分离成三个部分: <code>Model</code>、<code>View</code>、<code>ViewModel</code>。 <code>Model</code> 代表数据的表现, <code>View</code> 代表用户看到的界面，<code>ViewModel</code> 代表着模型层和视图层的主要关联关系。</p>
