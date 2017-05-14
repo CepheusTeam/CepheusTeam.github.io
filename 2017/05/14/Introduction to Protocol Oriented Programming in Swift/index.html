@@ -1,147 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head tag -->
 <head>
-    <title> Introduction to Protocol Oriented Programming in Swift · CepheusTrans </title>
-    <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="/style/style.css">
-<script src="/script/jquery.min.js"></script>
-<script>
-    var CONFIG = {
-        title: "CepheusTrans",
-        author: "CepheusSun",
-        lightbox: true,
-        animate: true
-    }
-</script>
+    <!--Description-->
+    
+        <meta name="description" content="OOP is okay, but could’ve been better
 
+Introduction即使你还不知道 Class 和 Struct 基本的区别, 你也可以看这个文章。都知道 Struct 不能继承, 但是, 为什么呢？
+如果你还不知道上面这个问题的答案, 花两分钟时间读一下下面这段代码。这些代码是写在 playground 上的">
+    
 
+    <!--Author-->
+    
+        <meta name="author" content="CepheusSun">
+    
 
-    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Introduction to Protocol Oriented Programming in Swift"/>
+    
 
+    <!--Open Graph Description-->
+    
 
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="CepheusTrans"/>
 
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
 
-    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+    <!--Page Cover-->
+    
 
+    <meta name="twitter:card" content="summary" />
+    
 
+    <!-- Title -->
+    
+    <title>Introduction to Protocol Oriented Programming in Swift - CepheusTrans</title>
 
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
 
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
 
-
+    <!-- Google Analytics -->
+    
 
 
 </head>
+
+
 <body>
-    <div class="progress">
-    <div class="progress-inner"></div>
-</div>
-    <div class="body">
-    <div class="tagcloud" id="tagcloud">
-    <div class="tagcloud-inner">
-        <a href="/tags/POP/" style="font-size: 14px;">POP</a> <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
-    </div>
-</div>
-    <header class="header" id="header">
-    <div class="title syuanpi tvIn">
-    <div class="table">
-        <div class="connect">
-            <div class="connect-inner">
-                <span><a href="/">CepheusTrans</a></span>
-                
-            </div>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="CepheusTrans">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="CepheusTrans">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/contact.html" 
+                    title="Contact">
+                    Contact
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Introduction to Protocol Oriented Programming in Swift</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-05-14</p>
         </div>
     </div>
-</div>
-    <nav class="main-nav syuanpi tvIn">
-<div class="table">
 
-    <ul class="menu">
-        
-        
-            <li class="menu-item">
-                <a href="/">
-                    <span>Article</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/archives">
-                    <span>Archives</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="javascript:;" id="tags">
-                    <span>Tags</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/about">
-                    <span>About</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-    </ul>
-
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
 </div>
-</nav>
-<div class="mobile-nav"></div>
-</header>
-    <div class="container">
-        <main class="main" id="main">
-            
-    
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 14, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                Introduction to Protocol Oriented Programming in Swift
-            
-            </h1>
-            
-                
-                    <div class="post-tags syuanpi riseIn-light back-3">
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
                     
-                        <a href="/tags/iOS/">iOS</a>
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a> <a class="fw3 ph1 dib" href="/tags/POP/">#POP</a>
+                            </div>
+                        </div>
                     
-                        <a href="/tags/Swift/">Swift</a>
-                    
-                        <a href="/tags/翻译/">翻译</a>
-                    
-                        <a href="/tags/POP/">POP</a>
-                    
-                    </div>
-                
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                <blockquote>
+
+                    <!-- Main Post Content -->
+                    <blockquote>
 <p>OOP is okay, but could’ve been better</p>
 </blockquote>
 <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>即使你还不知道 Class 和 Struct 基本的区别, 你也可以看这个文章。都知道 Struct 不能继承, 但是, 为什么呢？</p>
@@ -209,97 +208,156 @@
 <h3 id="That’s-it"><a href="#That’s-it" class="headerlink" title="That’s it!"></a>That’s it!</h3><p><a href="https://blog.bobthedeveloper.io/protocol-oriented-programming-view-in-swift-3-8bcb3305c427" target="_blank" rel="external">原文地址</a></p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
 
-            
-        
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a> <a class="fw3 ph1 dib" href="/tags/POP/">#POP</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="CepheusSun">
         </div>
-        
-            
-            
-        
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            My name is Jonathan Klughertz and this is my blog.<br>I am a full stack software engineer with a strong front-end focus.<br> I currently live and work in Singapore, hit me up if you are in the region.
+        </div>
     </article>
-    
-        
-    <nav class="article-page">
-        
-        
-            <a href="/2017/05/07/RxSwift MVVM API Manual/" id="art-right" class="art-left">
-                <span class="prev-title"> 
-                    <i class="iconfont icon-left"></i>RxSwift MVVM API Manual 📃
-                </span>
-            </a>
-        
-    </nav>
+</div>
 
-        
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
     
-
-
-        </main>
-        <footer class="footer syuanpi fadeIn" id="footer">
-    <hr>
-    <div class="footer-wrapper">
-        <div class="left">
-            <div class="contact-icon">
-    
-    
-    
-    
-    
-    
-    
+        <p>
+            <a href="/categories/POP/">POP</a>
+        </p>
     
 </div>
-        </div>
-        <div class="right">
-            <div class="copyright">
-    <div class="info">
-        <span>&copy;</span>
-        <span>1970 ~ 2017</span>
-        <span>❤</span>
-        <span>CepheusSun</span>
-    </div>
-    <div class="theme">
-        <span>
-            Powered by
-            <a href="http://hexo.io/" target="_blank">Hexo </a>
-        </span>
-        <span>
-            Theme
-            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
-        </span>
-    </div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/">Introduction to Protocol Oriented Programming in S</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift MVVM API Manual/">RxSwift MVVM API Manual 📃</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift Safety Manual/">RxSwift Safety Manual 📚</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift For Dummies Part3/">RxSwift For Dummies 🐣 Part3</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift For Dummies Part2/">RxSwift For Dummies 🐣 Part2</a>
+        </p>
     
 </div>
+                </div>
+            </div>
         </div>
     </div>
-</footer>
-    </div>
-    <script src="/script/nlvi.js"></script>
-
-    <script src="/lightbox/js/lightbox.min.js"></script>
-
-<script>
-$(document).ready(function(){
-    document.body.addEventListener('touchstart', function () {});
-    $('.progress').hide();
-    $('.body').show();
-    Nlvi.tagcloud();
-    Nlvi.back2top();
-    Nlvi.showToc();
-    Nlvi.showComments();
-    Nlvi.showReward()
-
-    !CONFIG.animate && Nlvi.offAnimate();
-    CONFIG.lightbox && Nlvi.onPicBox();
-})
-</script>
-    </div>
-    
-        
-    
-    <div class="backtop syuanpi dead toTop" id="backtop">
-    <i class="iconfont icon-up"></i>
-    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
 </div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
 </body>
+
 </html>

@@ -1,147 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head tag -->
 <head>
-    <title> RxSwift Safety Manual 📚 · CepheusTrans </title>
-    <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="/style/style.css">
-<script src="/script/jquery.min.js"></script>
-<script>
-    var CONFIG = {
-        title: "CepheusTrans",
-        author: "CepheusSun",
-        lightbox: true,
-        animate: true
-    }
-</script>
+    <!--Description-->
+    
+        <meta name="description" content="RxSwift 提供了大量非常好用的工具, 让写代码更爽, 但是他也可能给你带来一些头疼的地方, 也可能是bug😱。 用了三个月之后我觉得我应该也可以给出一些建议来避免一些问题。
+Side Effects在计算机科学中副作用这个词可能没那么容易理解, 因为这是一个非常宽泛的内容。在 Stackoverflow 有一些比较好的讨论。
+简单点说, 一个函数/闭包/…如果他们改变了 app 的状态, 都有可能带来一些副作用。在下面的例子中：
+123456789101112let observable = Observable&amp;lt;Int&amp;gt;.create &amp;#123; (observer) -&amp;gt; Disposable in    // 这样写没有副作用    observer.onNext(1)    return Disposables.create()&amp;#125;let observableWithSideEffect = Observable&amp;lt;Int&amp;gt;.create &amp;#123; (observer) -&amp;gt; Disposable in    // 这里就会有副作用: 这个 closure 改变了 counter 的值    counter = counter + 1    observer.onNext(counter)    return Disposables.create()&amp;#125;
+为什么在 RxSwift 中这个很重要呢? 因为对于冷信号❄️来说。每次被订阅他都会执行一下里面的任务
+我们两次订阅这个 observableWithSideEffect: 
+123456789observableWithSideEffect    .subscribe(onNext: &amp;#123; (counter) in        print(counter)    &amp;#125;).addDisposableTo(disposeBag)observableWithSideEffect    .subscribe(onNext: &amp;#123; (counter) in        print(counter)    &amp;#125;).addDisposableTo(disposeBag)
+我们可能希望他输出的是两个2.但是事实上它会输出2，3. 因为每次订阅都会分别执行, 所以在闭包里面的代码会被执行两次。所以 counter + 1 会执行两次
+也就是说, 如果你在这里面房里两个网络请求。它会发出两次请求
+我们怎么来解决这个问题呢？ 把这个冷信号转换成热信号💡。 使用 publish connect 还有 refCount 就可以了,这是完整细节。
+1234567891011121314151617var counter = 1let observableWithSideEffect = Observable&amp;lt;Int&amp;gt;.create &amp;#123; (observer) -&amp;gt; Disposable in    counter = counter + 1    observer.onNext(counter)    return Disposables.create()&amp;#125;.publish()// publish returns an observable with a shared subscription(hot).// It&#39;s not active yetobservableWithSideEffect    .subscribe(onNext: &amp;#123; (counter) in        print(counter)    &amp;#125;).addDisposableTo(disposeBag)observableWithSideEffect    .connect()    .addDisposableTo(disposeBag)
+这会输出 2，2
+大多数情况下这就够了。但是还有一个更高级的 shareReplay 操作符。他使用了 refCont 操作符合 replay. refCount 也是一种 connect 但是它是自动管理的。他会在第一次订阅开始的时候开始。 replay 会把一些元素发送给那些 “迟到了” 的订阅者/">
+    
 
+    <!--Author-->
+    
+        <meta name="author" content="CepheusSun">
+    
 
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="RxSwift Safety Manual 📚"/>
+    
 
-    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+    <!--Open Graph Description-->
+    
 
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="CepheusTrans"/>
 
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
 
+    <!--Page Cover-->
+    
 
-    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+    <meta name="twitter:card" content="summary" />
+    
 
+    <!-- Title -->
+    
+    <title>RxSwift Safety Manual 📚 - CepheusTrans</title>
 
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
 
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
 
-
-
+    <!-- Google Analytics -->
+    
 
 
 </head>
+
+
 <body>
-    <div class="progress">
-    <div class="progress-inner"></div>
-</div>
-    <div class="body">
-    <div class="tagcloud" id="tagcloud">
-    <div class="tagcloud-inner">
-        <a href="/tags/POP/" style="font-size: 14px;">POP</a> <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
-    </div>
-</div>
-    <header class="header" id="header">
-    <div class="title syuanpi tvIn">
-    <div class="table">
-        <div class="connect">
-            <div class="connect-inner">
-                <span><a href="/">CepheusTrans</a></span>
-                
-            </div>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="CepheusTrans">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="CepheusTrans">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/contact.html" 
+                    title="Contact">
+                    Contact
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">RxSwift Safety Manual 📚</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-05-07</p>
         </div>
     </div>
-</div>
-    <nav class="main-nav syuanpi tvIn">
-<div class="table">
 
-    <ul class="menu">
-        
-        
-            <li class="menu-item">
-                <a href="/">
-                    <span>Article</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/archives">
-                    <span>Archives</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="javascript:;" id="tags">
-                    <span>Tags</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/about">
-                    <span>About</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-    </ul>
-
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
 </div>
-</nav>
-<div class="mobile-nav"></div>
-</header>
-    <div class="container">
-        <main class="main" id="main">
-            
-    
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 7, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                RxSwift Safety Manual 📚
-            
-            </h1>
-            
-                
-                    <div class="post-tags syuanpi riseIn-light back-3">
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
                     
-                        <a href="/tags/iOS/">iOS</a>
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a> <a class="fw3 ph1 dib" href="/tags/Reactive/">#Reactive</a>
+                            </div>
+                        </div>
                     
-                        <a href="/tags/Swift/">Swift</a>
-                    
-                        <a href="/tags/翻译/">翻译</a>
-                    
-                        <a href="/tags/Reactive/">Reactive</a>
-                    
-                    </div>
-                
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                <p>RxSwift 提供了大量非常好用的工具, 让写代码更爽, 但是他也可能给你带来一些头疼的地方, 也可能是bug😱。 用了三个月之后我觉得我应该也可以给出一些建议来避免一些问题。</p>
+
+                    <!-- Main Post Content -->
+                    <p>RxSwift 提供了大量非常好用的工具, 让写代码更爽, 但是他也可能给你带来一些头疼的地方, 也可能是bug😱。 用了三个月之后我觉得我应该也可以给出一些建议来避免一些问题。</p>
 <h3 id="Side-Effects"><a href="#Side-Effects" class="headerlink" title="Side Effects"></a>Side Effects</h3><p>在计算机科学中副作用这个词可能没那么容易理解, 因为这是一个非常宽泛的内容。在 <a href="http://softwareengineering.stackexchange.com/questions/40297/what-is-a-side-effect" target="_blank" rel="external">Stackoverflow</a> 有一些比较好的讨论。</p>
 <p>简单点说, 一个函数/闭包/…如果他们改变了 app 的状态, 都有可能带来一些副作用。在下面的例子中：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 这样写没有副作用</span></div><div class="line">    observer.onNext(<span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> observableWithSideEffect = <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 这里就会有副作用: 这个 closure 改变了 counter 的值</span></div><div class="line">    counter = counter + <span class="number">1</span></div><div class="line">    observer.onNext(counter)</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -180,103 +188,156 @@
 <p><a href="http://swiftpearls.com/RxSwift-Safety-Manual.html" target="_blank" rel="external">原文地址</a></p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
 
-            
-        
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a> <a class="fw3 ph1 dib" href="/tags/Reactive/">#Reactive</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="CepheusSun">
         </div>
-        
-            
-            
-        
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            My name is Jonathan Klughertz and this is my blog.<br>I am a full stack software engineer with a strong front-end focus.<br> I currently live and work in Singapore, hit me up if you are in the region.
+        </div>
     </article>
-    
-        
-    <nav class="article-page">
-        
-            <a href="/2017/05/07/RxSwift MVVM API Manual/" id="art-left" class="art-right">
-                <span class="next-title">
-                    RxSwift MVVM API Manual 📃<i class="iconfont icon-right"></i> 
-                </span>
-            </a>
-        
-        
-            <a href="/2017/05/07/RxSwift For Dummies Part3/" id="art-right" class="art-left">
-                <span class="prev-title"> 
-                    <i class="iconfont icon-left"></i>RxSwift For Dummies 🐣 Part3
-                </span>
-            </a>
-        
-    </nav>
+</div>
 
-        
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
     
-
-
-        </main>
-        <footer class="footer syuanpi fadeIn" id="footer">
-    <hr>
-    <div class="footer-wrapper">
-        <div class="left">
-            <div class="contact-icon">
-    
-    
-    
-    
-    
-    
-    
+        <p>
+            <a href="/categories/Reactive/">Reactive</a>
+        </p>
     
 </div>
-        </div>
-        <div class="right">
-            <div class="copyright">
-    <div class="info">
-        <span>&copy;</span>
-        <span>1970 ~ 2017</span>
-        <span>❤</span>
-        <span>CepheusSun</span>
-    </div>
-    <div class="theme">
-        <span>
-            Powered by
-            <a href="http://hexo.io/" target="_blank">Hexo </a>
-        </span>
-        <span>
-            Theme
-            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
-        </span>
-    </div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/">Introduction to Protocol Oriented Programming in S</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift MVVM API Manual/">RxSwift MVVM API Manual 📃</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift Safety Manual/">RxSwift Safety Manual 📚</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift For Dummies Part3/">RxSwift For Dummies 🐣 Part3</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift For Dummies Part2/">RxSwift For Dummies 🐣 Part2</a>
+        </p>
     
 </div>
+                </div>
+            </div>
         </div>
     </div>
-</footer>
-    </div>
-    <script src="/script/nlvi.js"></script>
-
-    <script src="/lightbox/js/lightbox.min.js"></script>
-
-<script>
-$(document).ready(function(){
-    document.body.addEventListener('touchstart', function () {});
-    $('.progress').hide();
-    $('.body').show();
-    Nlvi.tagcloud();
-    Nlvi.back2top();
-    Nlvi.showToc();
-    Nlvi.showComments();
-    Nlvi.showReward()
-
-    !CONFIG.animate && Nlvi.offAnimate();
-    CONFIG.lightbox && Nlvi.onPicBox();
-})
-</script>
-    </div>
-    
-        
-    
-    <div class="backtop syuanpi dead toTop" id="backtop">
-    <i class="iconfont icon-up"></i>
-    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
 </div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
 </body>
+
 </html>

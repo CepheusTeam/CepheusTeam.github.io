@@ -1,566 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Head tag -->
 <head>
-    <title>
-    CepheusTrans
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
     
-</title>
-    <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
+    <!--Author-->
+    
+        <meta name="author" content="CepheusSun">
+    
 
-<link rel="stylesheet" href="/style/style.css">
-<script src="/script/jquery.min.js"></script>
-<script>
-    var CONFIG = {
-        title: "CepheusTrans",
-        author: "CepheusSun",
-        lightbox: true,
-        animate: true
-    }
-</script>
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="CepheusTrans"/>
+    
 
+    <!--Open Graph Description-->
+    
 
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="CepheusTrans"/>
 
-    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css">
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
 
+    <!--Page Cover-->
+    
 
+    <meta name="twitter:card" content="summary" />
+    
 
+    <!-- Title -->
+    
+    <title>CepheusTrans</title>
 
-    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
 
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
 
-
-
-
-
+    <!-- Google Analytics -->
+    
 
 
 </head>
+
+
 <body>
-    <div class="progress">
-    <div class="progress-inner"></div>
-</div>
-    <div class="body">
-    <div class="tagcloud" id="tagcloud">
-    <div class="tagcloud-inner">
-        <a href="/tags/POP/" style="font-size: 14px;">POP</a> <a href="/tags/Reactive/" style="font-size: 14px;">Reactive</a> <a href="/tags/Swift/" style="font-size: 14px;">Swift</a> <a href="/tags/iOS/" style="font-size: 14px;">iOS</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a>
-    </div>
-</div>
-    <header class="header" id="header">
-    <div class="title syuanpi tvIn">
-    <div class="table">
-        <div class="connect">
-            <div class="connect-inner">
-                <span><a href="/">CepheusTrans</a></span>
-                
-            </div>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="CepheusTrans">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="CepheusTrans">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/contact.html" 
+                    title="Contact">
+                    Contact
+                </a>
+            
         </div>
-    </div>
-</div>
-    <nav class="main-nav syuanpi tvIn">
-<div class="table">
-
-    <ul class="menu">
-        
-        
-            <li class="menu-item">
-                <a href="/">
-                    <span>Article</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/archives">
-                    <span>Archives</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="javascript:;" id="tags">
-                    <span>Tags</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-        
-            <li class="menu-item">
-                <a href="/about">
-                    <span>About</span>
-                    
-                    
-                </a>
-            </li>
-        
-        
-    </ul>
-
-</div>
-</nav>
-<div class="mobile-nav"></div>
-</header>
-    <div class="container">
-        <main class="main" id="main">
-            
-    
-
-<section class="posts">
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 14, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/">Introduction to Protocol Oriented Programming in Swift</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <blockquote>
-<p>OOP is okay, but could’ve been better</p>
-</blockquote>
-<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>即使你还不知道 Class 和 Struct 基本的区别, 你也可以看这个文章。都知道 Struct 不能继承, 但是, 为什么呢？</p>
-<p>如果你还不知道上面这个问题的答案, 花两分钟时间读一下下面这段代码。这些代码是写在 playground 上的</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 7, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/07/RxSwift MVVM API Manual/">RxSwift MVVM API Manual 📃</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>现在我们掌握了所有的工具, 也明确了他存在的风险以及规避的方法。现在是时候想想应该怎么样最大可能的运用它了。以 MVVM 为例。</p>
-<p>又很多方法来写 RxSwift 的 API。 我怕的做法是: 利用 RxSwift 很酷的观察者模式和很方便的操作符, 管理异步的任务。可能不是 100% 纯正的 RxSwift。 在将我做过很多的尝试试图将两种编程思维统一起来,但是我都失败了。</p>
-<p>下面是一些我使用 RxSwift 的方法。</p>
-<h3 id="Be-Consistent"><a href="#Be-Consistent" class="headerlink" title="Be Consistent"></a>Be Consistent</h3><p>这是在接口设计中最重要的事情, 如果你做出了选择。就坚持下去。</p>
-<p>既然如此, 现在就开始吧！<strong>input vs output</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FilterViewModel</span> </span>&#123;</div><div class="line">    <span class="comment">//Input</span></div><div class="line">    <span class="keyword">let</span> filterButtonEvents: <span class="type">BehaviorSubject</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    <span class="keyword">let</span> filterSelectionEvent: <span class="type">PublishSubject</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    </div><div class="line">    <span class="comment">//OutPut</span></div><div class="line">    <span class="keyword">let</span> currentFilter: <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;</div><div class="line">    <span class="keyword">let</span> shouldShowFilter: <span class="type">Observable</span>&lt;<span class="type">Bool</span>&gt;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>有好几个可以用来声明 inout 和 output 的组合。这是我最喜欢的一个。</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>通过将 <code>input</code> 声明成 <code>subject</code> 类型。我可以很方便的使用 <code>RxSwift</code> 中的各种操作符。我用的最多的应该是 <strong>throttle</strong>。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">filterButtonEvents</div><div class="line">    .throttle(<span class="number">0.5</span>, scheduler: <span class="type">MainScheduler</span>.instance)</div><div class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (counter) <span class="keyword">in</span></div><div class="line">    <span class="keyword">self</span>?.makeRequest()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>当然用 observable 做 input 也是可以的。</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>记住 <code>output</code> 应该是 <code>Observable</code>, 甚至是 <code>Subject</code>。 如果不这样的话，一些外部的类可能会错误的把这他当做是 <code>input</code> 这样就打破了封装了。当我想要发出一个变量的时候, 就是强制的释放。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(observable <span class="keyword">as</span>! <span class="type">PublishSubject</span>)</div><div class="line">    .onNext(<span class="string">"Ugly..."</span>)</div></pre></td></tr></table></figure>
-<p>如果你知道有更好的方法, 一定要告诉我。我感觉这么干是在是不优雅😱。</p>
-<h3 id="Safety"><a href="#Safety" class="headerlink" title="Safety"></a>Safety</h3><p>如果在一个简单的 Demo 中, 你可能记得做所有的细节。但在一个复杂的 app 中, 你几乎不可能记得住所有的实现细节。这里面可能有好几百个订阅者。 <code>Observable</code> 又是一个非常广泛的类型。都还没有说这个信号是热信号还是冷信号, 他是在主线程还是在后台线程中运行。这也是 <code>Driver</code> 被设计出来的原因, 为了让 API 更加明确。我们鼓励自己去创建一些单元。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/07/RxSwift MVVM API Manual/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 7, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/07/RxSwift Safety Manual/">RxSwift Safety Manual 📚</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>RxSwift 提供了大量非常好用的工具, 让写代码更爽, 但是他也可能给你带来一些头疼的地方, 也可能是bug😱。 用了三个月之后我觉得我应该也可以给出一些建议来避免一些问题。</p>
-<h3 id="Side-Effects"><a href="#Side-Effects" class="headerlink" title="Side Effects"></a>Side Effects</h3><p>在计算机科学中副作用这个词可能没那么容易理解, 因为这是一个非常宽泛的内容。在 <a href="http://softwareengineering.stackexchange.com/questions/40297/what-is-a-side-effect" target="_blank" rel="external">Stackoverflow</a> 有一些比较好的讨论。</p>
-<p>简单点说, 一个函数/闭包/…如果他们改变了 app 的状态, 都有可能带来一些副作用。在下面的例子中：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 这样写没有副作用</span></div><div class="line">    observer.onNext(<span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> observableWithSideEffect = <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 这里就会有副作用: 这个 closure 改变了 counter 的值</span></div><div class="line">    counter = counter + <span class="number">1</span></div><div class="line">    observer.onNext(counter)</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>为什么在 RxSwift 中这个很重要呢? 因为对于冷信号❄️来说。<strong>每次被订阅他都会执行一下里面的任务</strong></p>
-<p>我们两次订阅这个 <code>observableWithSideEffect</code>: </p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">observableWithSideEffect</div><div class="line">    .subscribe(onNext: &#123; (counter) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(counter)</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div><div class="line"></div><div class="line">observableWithSideEffect</div><div class="line">    .subscribe(onNext: &#123; (counter) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(counter)</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
-<p>我们可能希望他输出的是两个2.但是事实上它会输出2，3. 因为每次订阅都会分别执行, 所以在闭包里面的代码会被执行两次。<strong>所以 counter + 1 会执行两次</strong></p>
-<p>也就是说, 如果你在这里面房里两个网络请求。<strong>它会发出两次请求</strong></p>
-<p>我们怎么来解决这个问题呢？ 把这个冷信号转换成热信号💡。 使用 <strong>publish</strong> connect 还有 refCount 就可以了,这是<a href="http://www.tailec.com/blog/understanding-publish-connect-refcount-share" target="_blank" rel="external">完整细节</a>。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> counter = <span class="number">1</span></div><div class="line"><span class="keyword">let</span> observableWithSideEffect = <span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    counter = counter + <span class="number">1</span></div><div class="line">    observer.onNext(counter)</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;.publish()</div><div class="line"><span class="comment">// publish returns an observable with a shared subscription(hot).</span></div><div class="line"><span class="comment">// It's not active yet</span></div><div class="line"></div><div class="line">observableWithSideEffect</div><div class="line">    .subscribe(onNext: &#123; (counter) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(counter)</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div><div class="line"></div><div class="line">observableWithSideEffect</div><div class="line">    .connect()</div><div class="line">    .addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
-<p>这会输出 2，2</p>
-<p>大多数情况下这就够了。但是还有一个更高级的 <em>shareReplay</em> 操作符。他使用了 <code>refCont</code> 操作符合 <code>replay</code>. <code>refCount</code> 也是一种 <code>connect</code> 但是它是自动管理的。他会在第一次订阅开始的时候开始。 replay 会把一些元素发送给那些 “迟到了” 的订阅者/</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/07/RxSwift Safety Manual/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 7, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/07/RxSwift For Dummies Part3/">RxSwift For Dummies 🐣 Part3</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>好了, 接下来是第三个部分。<strong>Subjects</strong></p>
-<p>学了之前内容. 我们可能已经发现了。之前学习的内容都是 <code>Observables</code> 输出事件的部分。我们可以订阅他, 就能知道他输出的事件了。但是我们还不能改变他。</p>
-<p><strong>Subject</strong> 也是一个 <code>Observable</code> 但是他是能够同时输入和输出的。也就是说, 我们可以动态(强制)的在一个序列中发出信号。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="comment">// 可以直接转换，因为他也是一个 `Observable`</span></div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line">observable.subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(text)</div><div class="line">&#125;).addDisposableTo(disposeBag)</div><div class="line"><span class="comment">// 只要你想发出一个新的事件, 就可以用 onNext 方法 </span></div><div class="line">subject.onNext(<span class="string">"Hey!"</span>)</div><div class="line">subject.onNext(<span class="string">"I'm back!"</span>)</div></pre></td></tr></table></figure>
-<p><strong>onNext</strong> 是一个输出事件的方法。最后控制台会输出</p>
-<blockquote>
-<p>“Hey!”<br>“I’m back!”</p>
-</blockquote>
-<p><code>Subject</code> 到底有什么用呢? 为了很轻松的将 Rxswift 中声明式的世界和我们平常的世界连接起来。让我们在需要写实现式的代码的时候更 Rx </p>
-<p>在一个纯正的 Rx 的世界里。当你需要有一个更完美的流的时候, 不用去管这个 <code>Observable</code> 是怎么实现的。这个东西我会另外的解释。反正, 如果你需要， 大胆的用吧。</p>
-<p>上面式关于 Subject 最基本的内容。接下来我们学习一下怎么更好的使用 <strong>Subject</strong></p>
-<h3 id="Hot🔥-vs-Cold❄️"><a href="#Hot🔥-vs-Cold❄️" class="headerlink" title="Hot🔥 vs Cold❄️"></a>Hot🔥 vs Cold❄️</h3><p>在第一篇文章中就已经提到过了热信号🔥和冷信号❄️。今天我们在深入的了解一点吧，因为 <strong>Subject</strong> 实际上是我们第一次接触到真正的热信号。</p>
-<p>我们一定确定了，当我们使用 <strong>create</strong> 创建一个 <strong>Observable</strong> 的时候, 由于没有人订阅他，所以她是不会发送消息的。只有被 <strong>subscribe</strong>(订阅)之后才会开始发送消息出来。这就是我们叫它为冷信号❄️的原因。如果很不幸你忘了这个知识点。你可以回到第一篇文章去看看。热信号🔥 就是那种即使没有被订阅也会发出消息的信号, 这也是 <code>subject</code> 做的事情。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</div><div class="line"><span class="keyword">let</span> observable: <span class="type">Observable</span>&lt;<span class="type">String</span>&gt; = subject</div><div class="line"><span class="comment">// 这个信号还没有被订阅, 所以这个值不回被接受到</span></div><div class="line">subject.onNext(<span class="string">"Am I too early for the party?"</span>)</div><div class="line"></div><div class="line">observable</div><div class="line">    .subscribe(onNext: &#123; (text) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(text)</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div><div class="line"><span class="comment">// 这个值发出来的时候已经有一个订阅者了, 所以这个值会打印出来</span></div><div class="line">subject.onNext(<span class="string">"🎉🎉🎉"</span>)</div></pre></td></tr></table></figure>
-<p>很简单直接吧。如果在第一篇中你理解了冷信号的话, 理解热信号也是很自然的事情。</p>
-<h3 id="Subject-Types"><a href="#Subject-Types" class="headerlink" title="Subject Types"></a>Subject Types</h3><p>常用的 <code>Subject</code> 有三种。 他们其实都差不多, 唯一的区别就是: 在订阅之前, 它会干什么。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/07/RxSwift For Dummies Part3/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 7, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/07/RxSwift For Dummies Part2/">RxSwift For Dummies 🐣 Part2</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>我们在上一篇文章中介绍了 RxSwift 基础的部分. 现在我们来学习一些操作符, 来学习一下 <strong>FRP</strong> 中的<strong>F</strong>(unctional) 部分</p>
-<h3 id="Schedulers"><a href="#Schedulers" class="headerlink" title="Schedulers"></a>Schedulers</h3><p>我们先学习一下之前就已经提到过的, 但是没有详细介绍的 <strong>Schedulers</strong></p>
-<p><strong>Schedulers</strong> 最常见的用法就是告诉 <code>Observables</code> 和订阅者 应该在哪个线程或者队列中发送事件,或者通知。</p>
-<p>关于 <code>Schedulers</code> 最常见的操作符是<code>observerOn</code> 和 <code>subscribleOn</code></p>
-<p>通常情况下 <code>Observables</code> 会在它被订阅的那个线程发送事件或者通知。</p>
-<h4 id="ObserveOn"><a href="#ObserveOn" class="headerlink" title="ObserveOn"></a>ObserveOn</h4><p><strong>ObserveOn</strong> 指定 <code>Observables</code> 发送事件的线程或者队列。它不会改变它执行的线程。</p>
-<p>举一个跟 part1 很相似的例子：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">        <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">            observer.onNext(<span class="string">"Hello dummy 🐥"</span>)</div><div class="line">            observer.onCompleted()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>假设订阅者是一个 UI 层的东西， 比如说是一个 <code>UIViewController</code> 或者 <code>UIView</code></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async</div></pre></td></tr></table></figure>
-<p>我们把这个任务放在子线程中去执行， 以免阻塞 UI </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DispatchQueue.main.async&#123; ...</div></pre></td></tr></table></figure>
-<p>我们需要在主线程中去更新 UI, 你应该知道 <code>UIKit</code> 要求对 <code>UI</code> 的操作都必须在主线程中进行。所以这些操作对你来说一定是很熟悉的了。</p>
-<p>记下来使用 <strong>ObserveOn</strong> 来重构一下这段代码</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create(&#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">        <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">        observer.onNext(<span class="string">"Hello dummy 🐥"</span>)</div><div class="line">        observer.onCompleted()</div><div class="line">    &#125;</div><div class="line">        <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">    &#125;).observeOn(<span class="type">MainScheduler</span>.instance)</div></pre></td></tr></table></figure>
-<p>我们删掉了 <code>DispatchQueue.main.async {}</code> 然后添加了 <code>.observeOn(MainScheduler.instance)</code>。 这个就可以让所有的事件都在主线程中被发送出去。就是这么简单。 <code>&quot;Hello dummy 🐥&quot;</code> 这个元素就能够很安全的被发送给 UI 的元素， 因为我们可以很确定他会在主线程中被发送出去。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">observable.subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (element) <span class="keyword">in</span></div><div class="line">    <span class="keyword">self</span>?.label.text = element</div><div class="line">&#125;).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
-<p><strong>ObserveOn</strong> 大概是最常见的线程调度操作符了。你希望 <code>Observables</code> 包含了所有的逻辑, 和线程操作, 让订阅者尽可能的简单。所以我们接下来再了解一下 <code>subscribeOn</code> 这个操作符。</p>
-<h4 id="SubscribeOn-Optional"><a href="#SubscribeOn-Optional" class="headerlink" title="SubscribeOn (Optional)"></a>SubscribeOn (Optional)</h4><p>这是一个非常先进的操作符。你可以先跳过这部分, 以后再来研究🐤</p>
-<p><code>subscribeOn</code> 跟 <code>ObserveOn</code> 非常的相似。<strong>但是他只能改变 <code>Observable</code> 将要执行的任务所在的线程。</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">    observer.onNext(<span class="string">"Hello dummy 🐥"</span>)</div><div class="line">    observer.onCompleted()</div><div class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125; </div><div class="line">observable</div><div class="line">    .subscribeOn(<span class="type">ConcurrentDispatchQueueScheduler</span>(qos: .<span class="keyword">default</span>))</div><div class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (element) <span class="keyword">in</span></div><div class="line">        <span class="keyword">self</span>?.label.text = element</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
-<p>上面的代码中, 我删掉了 <code>Observable</code> 中的 <code>DispatchQueue.global(qos: .default).async {}</code>  是这个订阅者告诉他应该在一个 <code>global queue</code> 中执行下面的操作, 以免阻塞 UI. 很明显这回导致一个异常的抛出, 之前提到过： 这回导致 <code>Observable</code> 在全局队列中执行, <strong>也会在全局队列中发出事件</strong>。只需要添加在 <code>Observable</code> 中添加 <code>.observeOn(MainScheduler.instance)</code>就能避免这个问题。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">    <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">    observer.onNext(<span class="string">"Hello dummy 🐥"</span>)</div><div class="line">    observer.onCompleted()</div><div class="line">        <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">&#125;.observeOn(<span class="type">MainScheduler</span>.instance)      </div><div class="line">observable</div><div class="line">    .subscribeOn(<span class="type">ConcurrentDispatchQueueScheduler</span>(qos: .<span class="keyword">default</span>))</div><div class="line">    .subscribe(onNext: &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (element) <span class="keyword">in</span></div><div class="line">        <span class="keyword">self</span>?.label.text = element</div><div class="line">    &#125;).addDisposableTo(disposeBag)</div></pre></td></tr></table></figure>
-<p>添加之后，就能够发现刚刚说到的问题已经解决掉了。</p>
-<p>我们什么时候应该用 <code>observeOn</code> 呢？最常见的场景是:如果在 <code>Observable</code> 不需要在后台执行耗时操作(读取数据, 大的计算任务)的话.我不认为这是非常频繁的事情。但是，come on!  多知道一个你能用的工具 🛠不是件很 cool 的事情吗？</p>
-<h4 id="Scheduler-Types"><a href="#Scheduler-Types" class="headerlink" title="Scheduler Types"></a>Scheduler Types</h4><p>做为 RxSwift 菜鸟, 好奇 <code>observeOn</code> 和 <code>MainScheduler.instance</code> 没什么关系。你可以自己创建一个线程或者直接使用已经创建好了的。如果你很好奇的话<a href="https://github.com/ReactiveX/RxSwift/blob/master/Documentation/Schedulers.md" target="_blank" rel="external">这里有很多</a>。 这也没什么好复杂的， 就是对 GCD 和 NSOperation 的封装而已。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/07/RxSwift For Dummies Part2/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 6, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/06/RxSwift For Dummies Part1/">RxSwift For Dummies 🐣 Part1</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p><strong>RxSwift</strong> 真的是一个非常值得学习的东西。非常遗憾的是我没有研究所有的架构模式MVVM VIPER Routing。</p>
-<p>要非常好的讲出来RxSwift到底是个什么东西，我也说不好。毕竟他能做太多的事情了。普遍认为，他是函数响应式编程中非常重要的观察者模式。在最初的定义中,他并不就是函数响应式编程。他最初的设计灵感就是来自于函数响应式(<strong>FRP</strong>), 所以也可以说它包含了函数响应式的特性。</p>
-<p>如果你不知道什么是 <strong>FRP</strong> 的话, 不用担心, 在这个教程中你会自然而然的理解什么是 <strong>FRP</strong>。</p>
-<p>通过对 RXSwift 的深入研究, 我得到了很多的启发, 同时也被很多的问题困扰。相信你也会这样。</p>
-<p>需要花很多个小时的时间来适应新的思维模式，唯一能确定的是，一旦你适应了，你就再也不想回到从前了。</p>
-<p>在这个教程中，我会尽可能的节约你的时间，并且解释的尽可能的详细。想教幼儿园的小朋友一样。</p>
-<p>开始学习之前, 请确定你已经掌握了 Swift 和 UIkit 的基础知识. </p>
-<h3 id="The-Why"><a href="#The-Why" class="headerlink" title="The Why?"></a>The Why?</h3><p>写 UI 的时候经常会处理一些异步的操作。我们很早就知道要使用观察者模式来实现这个东西。我相信你现在已经非常熟悉代理模式了。代理模式是一种很酷的设计模式。但是写起来真的很烦😡。</p>
-<center><br><img src="http://swiftpearls.com/images/cry.jpg" alt=""><br></center>
-
-<ul>
-<li>代理模式需要些很多的模版代码: 创建一个协议, 声明一个 <code>delegate</code> 变量, 遵守协议, 设置代理…</li>
-<li>写完这么多模版代码,可能你不小心就忘了其中的某个步骤。 比如说 <code>object.delegete = self</code></li>
-<li>管理起来非常麻烦。他需要在好几个文件中跳跃。</li>
-</ul>
-<p>RxSwift 解决了这个问题。他能够让你通过声明的方式使用观察者模式。减少了管理的负担, 当然，也不用写那么多模版代码。</p>
-<p>我刚刚开始了一个项目，在这个项目中，至今还没有写一个 <code>delegate</code></p>
-<h3 id="Basic-Example"><a href="#Basic-Example" class="headerlink" title="Basic Example"></a>Basic Example</h3><p>talk is cheap, show you the code.</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleClass</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">runExample</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// OBSERVABLE //</span></div><div class="line">        <span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span></div><div class="line">            <span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">                <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">10</span>)</div><div class="line">                observer.onNext(<span class="string">"Hello dummy 🐣"</span>)</div><div class="line">                observer.onCompleted()</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// OBSERVER //</span></div><div class="line">        </div><div class="line">        observable.subscribe(onNext:&#123; (element) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(element)</div><div class="line">        &#125;).addDisposableTo(disposeBag)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这就是最基本的例子, 在这个示例中, 我们声明了一个 runExample 方法。在这个方法中执行的是一些 RxSwift 中的事情。想一下在这个例子中发生了什么吧。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/06/RxSwift For Dummies Part1/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 6, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/06/MVVM design pattern and RxSwift/">MVVM design pattern and RxSwift</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>本文翻译自(<a href="http://lukagabric.com/mvvm-design-pattern-and-rxswift/" target="_blank" rel="external">http://lukagabric.com/mvvm-design-pattern-and-rxswift/</a>)</p>
-<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>MVVM 是一种设计模式。他是程序的代码分离成三个部分: <code>Model</code>、<code>View</code>、<code>ViewModel</code>。 <code>Model</code> 代表数据的表现, <code>View</code> 代表用户看到的界面，<code>ViewModel</code> 代表着模型层和视图层的主要关联关系。</p>
-<h4 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h4><p><code>Model</code> 就是数据层。他包括一定范围内的模型，和业务逻辑。 <code>Model</code> 并不只是你程序中的那些模型结构体或者数据库, 他也包含了一些 Service 或者组件, 比如说 <code>Alamofire</code>和一些 SDK 等等。</p>
-<p><code>Model</code> 层执行所有跟数据有关的操作。比如常见的增删改查等等。这些操作由 <code>ViewModel</code> 发起。当 <code>Model</code>操作完了数据之后它再告诉 <code>ViewModel</code> 结果。</p>
-<p><code>Model</code> 被 ViewModel 持有。他也并不知道视图层和 <code>ViewModel</code> 层的事情。因为他是和这两个东西完全隔离开的。</p>
-<h4 id="View"><a href="#View" class="headerlink" title="View"></a>View</h4><p><code>View</code> 是程序中数据的可视化展示。它没有逻辑相关的东西。他主要有接受用户交互事件，和将数据展示在界面上两个人物。它将用户交互的事件转发到 <code>ViewModel</code> 中进行处理。<code>View</code> 观察 <code>ViewModel</code> 中数据的变化, 并且将这些变化展现出来。</p>
-<p><code>View</code> 和 <code>Model</code> 之间没有任何直接的关联。 他们通过 <code>View</code> 持有的 <code>ViewModel</code> 产生关联。</p>
-<p>界面信息在 <code>xib</code> 或者 <code>StoryBoard</code> 中通过 <code>UIKit</code> 中的组件被定义。<code>ViewController</code> 是直接跟 <code>xib</code> 或者 <code>StoryBoard</code> 关联的。它包含了 <code>Xib</code> 或者 <code>StoryBoard</code> 中的 <code>outlets</code> 和一些定义 UI 的额外配置。他也负责管理 <code>View</code> 的生命周期。 在 MVVM 中他和 <code>View</code> 的关联是非常紧密的, 他其实就是 <code>View</code> 层的一部分。</p>
-<h4 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h4><p><code>ViewModel</code> 是程序的逻辑层。他处理用户交互行为。然后更新数据。然后在通知 <code>View</code> 新的数据和显示的方式。举一个很平常的例子。一个 ViewModel 从Model层中请求到了一些包含 <code>Date</code> 的模型。 这个 Date 值并不会被告诉给 View, ViewModel 告诉 View 的应该是被格式化之后的字符串。视图不会操作数据本身，他只负责将 ViewModel 准备好的数据展示出来。</p>
-<h4 id="Similar-to-MVC"><a href="#Similar-to-MVC" class="headerlink" title="Similar to MVC"></a>Similar to MVC</h4><p>在 MVC 设计模式中, <code>ViewController</code> 是 <code>Model</code> 和 <code>View</code> 之间的桥梁。他只有视图, 管理视图的结构，管理用户的交互。他还负责管理视图的生命周期,加载、显示、消失等。他具有的另外一个指责是更新模型数据, 这就包括了显示数据的相关逻辑(也就是数据的处理,如上文提到的讲 <code>Date</code> 转化成 <code>String</code> 的逻辑)。因为他具有这么多的职责，所以很多情况下 <code>Viewcontroller</code> 就会变的非常大。所以也有人称MVC 为 Massive View Controller</p>
-<p>出现复杂的 <code>viewController</code> 主要有两个原因。由于 <code>Controller</code> 有很多的职责。代码就会变的非常的复杂。这很明显就违背了单一职责这个原则。这也让测试 <code>Controller</code> 中的逻辑变成一件很麻烦的事情。<code>Controller</code> 和 <code>View</code> 的高度耦合。<code>view</code> 的生命周期使得逻辑的分离变的不那么容易。我们就需要花很大的精力来处理视图的生命周期。</p>
-<p>MVVM 和 MVC 非常相似。 正如前文所说。 MVC 中的 <code>Controller</code> 同时包含了视图和程序的逻辑。将逻辑相关的代码从 <code>Controller</code> 中分离出来, 放到他自己抽象出来的类里面去。这时候的 <code>Controller</code>就只关注视图相关的事情。刚刚分离出来的这个类处理相关的逻辑。这个类就是 ViewModel。他和 <code>Controller</code> 具有一一对应关系。所以说 MVVM 就是将逻辑代码从 <code>controller</code>中分离到 <code>ViewModel</code> 中的 MVC</p>
-<h4 id="Binding-data-from-ViewModel-to-View"><a href="#Binding-data-from-ViewModel-to-View" class="headerlink" title="Binding data from ViewModel to View"></a>Binding data from ViewModel to View</h4><p>有很多将数据绑定的机制, 比如 Swift 中的属性观察。视图可以对外提供一个 Closure 来进行视图的更新。这个 Closure 用来通知 View 他关联的属性的更新。除了熟悉观察。我们的程序还经常需要处理各种异步操作，比如网络请求，和通知或者事件的流信息。函数响应式编程(FRP)框架简直就是为了处理这类事件而生的。现在也有很多FRP 框架，对 iOS 开发来说，最出名的应该是 <code>RxSwift</code> 和 <code>ReactiveCocoa</code>了。之前在一篇对比文章中有提到过, 不管怎样，我更喜欢 <code>RxSwift</code> </p>
-<h3 id="RxSwift"><a href="#RxSwift" class="headerlink" title="RxSwift"></a>RxSwift</h3><p>指令式编程是基于一步一步明确的指令来执行的。他详细的描述了程序的运行过程。值做为状态而存在。由于程序是一步一步的执行的,所以如果其中一个值在之后发生了改变，这一改变也不会被传到下一步。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 指令式编程</span></div><div class="line">a = <span class="number">1</span></div><div class="line">b = <span class="number">2</span></div><div class="line"><span class="built_in">c</span> = a + b  <span class="comment">// c = 3</span></div><div class="line">a = <span class="number">5</span>   <span class="comment">// c = 3</span></div></pre></td></tr></table></figure>
-<p>响应式编程,跟指令式相反。他是基于变化的。他基于声明式编程，这就意味着他关注的是程序应该完成什么，而不是程序是怎么运行的。它是通过数学运算和其他像是 <code>filter</code> <code>map</code> <code>reduce</code> 之类的运算操作的运用来实现的。如何准确的运行被交给底层的程序语言或者框架来考虑了。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 响应式编程</span></div><div class="line">a = <span class="number">1</span></div><div class="line">b = <span class="number">2</span></div><div class="line"><span class="built_in">c</span> = a + b <span class="comment">// c = 3</span></div><div class="line">a = <span class="number">5</span>     <span class="comment">// c = 7</span></div></pre></td></tr></table></figure>
-<p>RxSwift 让你能用通过函数响应式编程来编写你的代码。使用 RxSwift 可以很轻松的创建事件或者数据流。这些事件或者数据流可以互相组合、转换。并且最终被观察到，基于值来进行一些操作。</p>
-<p>正如前文所说，在 MVVM 中 View 观察 ViewModel 中模型的数据。RxSwift 提供了一个非常简单并且干净的方法来观察这些值，并绑定到对应的 View 上。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/06/MVVM design pattern and RxSwift/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-        
-    <article class="post">
-        <header class="post-header">
-            <div class="post-time syuanpi riseIn-light back-1">
-                <span>May 5, 2017</span>
-            </div>
-            <h1 class="post-title syuanpi riseIn-light back-2">
-            
-                <a href="/2017/05/05/RxSwift and the awesome things you can do with Reactive Programming — Part I/">RxSwift and the awesome things you can do with Reactive Programming — Part I</a>
-            
-            </h1>
-            
-        </header>
-        <div class="post-content syuanpi riseIn-light back-3">
-            
-                
-                    <p>本文翻译自国外的美女工程师 <a href="https://medium.com/@kenzai" target="_blank" rel="external">Kenza Iraki</a> 的文章 <a href="https://medium.com/@kenzai/rxswift-and-the-awesome-things-you-can-do-with-reactive-programming-part-i-3921137d251" target="_blank" rel="external">RxSwift and the awesome things you can do with Reactive Programming — Part I</a></p>
-<p>第一次听见响应式编程，我的表情是这样的</p>
-<center><br><img src="https://cdn-images-1.medium.com/max/1600/1*28RdzpfQBHklPcgLGsg0jw.png"><br></center>
-
-<p>接下来的几次几次接触, 也并没有什么改变。整整两个星期之后,即使我在项目中写了一些响应式代码。我依然是这种感觉。</p>
-<p>现在我才知道有很多的人在第一次遇见响应式编程的时候跟我有一样的感觉。我也知道很多人看过响应式的代码之后再也不想再见到它了，因为她的学习曲线太过陡峭了。但是我能告诉你一个事实, 我还没听说过一个人， 在最终理解了他是怎么回事之后,后悔学习响应式编程。</p>
-<p>我知道网上有很多关于响应式编程理论和思想还有 RxSwift 的的资源, 也有很多教你用Rx来做各种事情的教程(文末我会给出一些链接)。这篇文章不是是一个教程, 也不会解释 <code>stream</code> 和 <code>observables</code> 是怎么回事。 我要做的是提供一个直接、明确并且尽量少的理论总结来告诉你 RxSwift 能做什么, 并且告诉你为什么你会喜欢上它。由于 Rx 的世界深似海, 所以我打算写三篇文章来讨论这件事情, 这是第一篇。</p>
-<h2 id="Part1-Data-Binding-control-events-and-gesture-recognizers"><a href="#Part1-Data-Binding-control-events-and-gesture-recognizers" class="headerlink" title="Part1: Data Binding, control events and gesture recognizers"></a>Part1: Data Binding, control events and gesture recognizers</h2><h3 id="Data-Binding"><a href="#Data-Binding" class="headerlink" title="Data Binding"></a>Data Binding</h3><p>数据绑定看起来像是一个高端的词语, 但是它却是一件非常简单的事情。假如你有一个 App 需要用户在 <code>UITextField</code> 中输入它们的名字。当他们在打字的时候, 用 “你好 + 用户输入的文字” 展示在界面上。这样一个很基本的场景。如果在不是响应式的程序中, 我们需要遵守 <code>UITextFieldDelegate</code> 这个协议, 然后在 <code>ViewController</code> 中实现 <code>textFieldDidEndEditing</code> 这个方法, 来监听用户用户的行为，然后给 <code>Label</code> 赋值。</p>
-<p>虽然很简单，但是假如有很多的 <code>UITextField</code> 我们还要在代理方法中判断, 又或者, 我们需要用户在输入的过程中时时的刷新 <code>Label</code>。这种场景, 我们的代码，看起来就会很糟糕。至少不会很优雅吧。</p>
-<p>在响应式中, 这种情况就可以用数据绑定来实现。说白了,就是将用户在 <code>UITextField</code> 中输入的文字绑定到 <code>UILabel</code> 上。在 <code>RxSwift</code> 的世界里,  没有什么比处理数据绑定更简单的了。刚才描述的需求, 我们只需要通过以下代码就可以实现了。</p>
-                    
-            
-        
-            <p class="content-link">
-                <a href="/2017/05/05/RxSwift and the awesome things you can do with Reactive Programming — Part I/#more">
-                    <span class="iconfont icon-right">Read More...</span>
-                </a>
-            </p>
-        
-        </div>
-        
-    </article>
-    
-
-    
-</section>
-    
-    <nav class="pagination">
-        <span class="page-number current">1</span>
     </nav>
 
-
-        </main>
-        <footer class="footer syuanpi fadeIn" id="footer">
-    <hr>
-    <div class="footer-wrapper">
-        <div class="left">
-            <div class="contact-icon">
-    
-    
-    
-    
-    
-    
-    
-    
-</div>
-        </div>
-        <div class="right">
-            <div class="copyright">
-    <div class="info">
-        <span>&copy;</span>
-        <span>1970 ~ 2017</span>
-        <span>❤</span>
-        <span>CepheusSun</span>
-    </div>
-    <div class="theme">
-        <span>
-            Powered by
-            <a href="http://hexo.io/" target="_blank">Hexo </a>
-        </span>
-        <span>
-            Theme
-            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
-        </span>
-    </div>
-    
-</div>
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Welcome to Anodyne</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">Create Websites. Make Magic.</p>
         </div>
     </div>
-</footer>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa fa-magic"></i>
     </div>
-    <script src="/script/nlvi.js"></script>
+</div>
 
-    <script src="/lightbox/js/lightbox.min.js"></script>
-
-<script>
-$(document).ready(function(){
-    document.body.addEventListener('touchstart', function () {});
-    $('.progress').hide();
-    $('.body').show();
-    Nlvi.tagcloud();
-    Nlvi.back2top();
-    Nlvi.showToc();
-    Nlvi.showComments();
-    Nlvi.showReward()
-
-    !CONFIG.animate && Nlvi.offAnimate();
-    CONFIG.lightbox && Nlvi.onPicBox();
-})
-</script>
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            
+                <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-14</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/POP/'; return false;">#POP</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">Introduction to Protocol Oriented Programming in Swift<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/07/RxSwift MVVM API Manual/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-07</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift MVVM API Manual 📃<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/07/RxSwift Safety Manual/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-07</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift Safety Manual 📚<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/07/RxSwift For Dummies Part3/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-07</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift For Dummies 🐣 Part3<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/07/RxSwift For Dummies Part2/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-07</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift For Dummies 🐣 Part2<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/06/RxSwift For Dummies Part1/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-06</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift For Dummies 🐣 Part1<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/06/MVVM design pattern and RxSwift/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-06</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/设计模式/'; return false;">#设计模式</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">MVVM design pattern and RxSwift<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+                <a href="/2017/05/05/RxSwift and the awesome things you can do with Reactive Programming — Part I/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv4">
+        <div class="dtc v-mid w-90 black-70">
+            <div>
+                
+                    <span class="f5 fw3 lh-copy pr4">2017-05-05</span> 
+                
+                
+                <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/iOS/'; return false;">#iOS</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Swift/'; return false;">#Swift</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/翻译/'; return false;">#翻译</span> <span class="fake-link fw3 ph1 dib" onclick="location.href = '/tags/Reactive/'; return false;">#Reactive</span>
+                
+            </div>
+            <span class="f3 fw3 lh-copy">RxSwift and the awesome things you can do with Reactive Programming — Part I<span>
+        </div>
+        <div class="dtc v-mid w-10 f1 black-50 tr">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+</a>
+            
+        </div>
     </div>
     
-    <div class="backtop syuanpi dead toTop" id="backtop">
-    <i class="iconfont icon-up"></i>
-    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
 </div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
 </body>
+
 </html>
