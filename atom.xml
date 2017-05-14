@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://CepheusTeam.github.io/"/>
-  <updated>2017-05-13T16:08:14.000Z</updated>
+  <updated>2017-05-14T14:27:21.000Z</updated>
   <id>https://CepheusTeam.github.io/</id>
   
   <author>
@@ -14,6 +14,87 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Protocol Oriented Programming View in Swift 3</title>
+    <link href="https://CepheusTeam.github.io/2017/05/14/Protocol%20Oriented%20Programming%20View%20in%20Swift%203/"/>
+    <id>https://CepheusTeam.github.io/2017/05/14/Protocol Oriented Programming View in Swift 3/</id>
+    <published>2017-05-14T09:28:23.000Z</published>
+    <updated>2017-05-14T14:27:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>学习如何在不创建一大堆类的前提下做按钮、label、图片的动画。</p>
+</blockquote>
+<p>掌握了足够的知识而不去使用它, 就像你长了满口的牙齿, 但是成天都喝牛奶一样。 掌握了足够的理论知识, 在项目中怎么使用 POP 呢？🤔</p>
+<a id="more"></a>
+<h3 id="What-I-think-you-will-learn"><a href="#What-I-think-you-will-learn" class="headerlink" title="What I think you will learn"></a>What I think you will learn</h3><p>使用协议让 UI 组件做动画。也会用传统的方法来更 POP 比较。😎</p>
+<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4><p>这个 demo 叫 “Welcome to My House Party”。 我写这个app 来验证你是否被邀请。你得输入你的邀请码。<strong>这个 app 没有逻辑相关的东西，按下这个按钮之后, 上面的控件都会动起来</strong> 界面上有4个组件会动。 <code>passcodeTextField</code>、<code>loginButton</code>、<code>errorMessageLabel</code>、<code>profileImageView</code>.</p>
+<p>一共有两种动画类型 </p>
+<ol>
+<li>Buzzing </li>
+<li>Popping</li>
+</ol>
+<center><br><img src="https://cdn-images-1.medium.com/max/1600/1*uN6sB588ehZIivOmmAsLPg.gif" alt=""><br></center>
+
+<p>不要担心跟不上，只需要跟着节奏往下走就行了。如果你没信心了，滑到最后面，把 Demo 下下来, 直接看代码就行了。</p>
+<h4 id="Things-Back-Then"><a href="#Things-Back-Then" class="headerlink" title="Things Back Then"></a>Things Back Then</h4><p>要真正掌握在实际情况中 POP 的魔力，我们先比较一下传统的写法。你可能会创造两个子类然后给她添加一个方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableButton</span>: <span class="title">UIButton</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buzz</span><span class="params">()</span></span> &#123;<span class="comment">// Animation Logic&#125;</span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableLabel</span>: <span class="title">UILabel</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buzz</span><span class="params">()</span></span> &#123;<span class="comment">// Animation Logic&#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后让他动起来，当你点击这个按钮</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> errorMessageLabel: <span class="type">BuzzableLabel</span>!</div><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loginButton: <span class="type">BuzzableButton</span>!</div><div class="line"></div><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">didtapLoginButton</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</div><div class="line">    errorMessageLabel.buzz()</div><div class="line">    loginButton.buzz()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你看到我们重复了几次相同的事情了吗？ 动画的逻辑至少都需要5行代码。既然用 extension 是更好的办法。 UILabel 和 UIButton 都继承了 UIView。 我们可以这样。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buzz</span><span class="params">()</span></span> &#123; <span class="comment">// Animation Logic &#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在 <code>BuzzableButton</code> 还有 <code>BuzzableLabel</code> 都有 <code>buzz</code> 这个方法了。 现在我们就没有重复了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableButton</span>: <span class="title">UIButton</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableLabel</span>: <span class="title">UILabel</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> errorMessageLabel: <span class="type">BuzzableLabel</span>!</div><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loginButton: <span class="type">BuzzableButton</span>!</div><div class="line"></div><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">didTapLoginButton</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</div><div class="line"> errorMessageLabel.buzz()</div><div class="line"> loginButton.buzz() </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Okay-then-why-POP-🤔"><a href="#Okay-then-why-POP-🤔" class="headerlink" title="Okay, then why POP? 🤔"></a>Okay, then why POP? 🤔</h4><p>你应该也看见了那个写着 “Please enter valid code 😂” 的<code>errorMessageLabel</code> 还有另外一个动画。她先是出现然后在消失。所以, 之前的方法是怎么样的呢？</p>
+<p>有两个方法来做这件事情。首先你需要再给 <code>UIView</code> 添加一个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// Extend UIView</div><div class="line">extension UIView &#123;</div><div class="line">    func buzz() &#123; // Animation Logic&#125;</div><div class="line">    func pop() &#123; // UILable Animation Logic &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是如果我们给 UIView 添加了这个方法。这个方法在其他的组件上也有了。包括他的子类 <code>UILabel</code>。 我们继承了没有必要的方法。这些组件也莫名其妙的变的很臃肿了。</p>
+<p>还有一个方法是给 <code>UILabel</code> 添加一个子类，</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Subclass UILabel</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableLabel</span>: <span class="title">UILabel</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> &#123; <span class="comment">// UILabel Animation Logic &#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这也能实现。但是可能我们还需要把这个类的名字改一下，然它更直观一点.换成 <code>BuzzablePoppableLabel</code> 吧！</p>
+<p>如果你想给这个 Label 添加更多的方法。为了让这个 Label 更直观的表达它的作用，可能名字又得改了 <code>BuzzablePoppableFlashableDopeFancyLovelyLabel</code> 这显然非常的不可持续。</p>
+<h3 id="Protocol-Oriented-Programming"><a href="#Protocol-Oriented-Programming" class="headerlink" title="Protocol Oriented Programming"></a>Protocol Oriented Programming</h3><p>用子类来实现就是这样的。选择我们先写一个协议吧！ Buzzing</p>
+<p>因为动画的代码都比较长，我没有在这里写出来。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Buzzable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Buzzable</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">UIview</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buzz</span><span class="params">()</span></span> &#123; <span class="comment">// Animation Logic&#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只要遵守了这个协议的 UI 组件就都有 Buzz 这个方法了。与 extension 不同的是，只有遵守的这个协议才会有这个方法。并且我是用了 <code>where Self: UIView</code> 来声明这个协议只能被 UIView 及其子类遵守。</p>
+<p>既然这样，我们就先给 <code>loginButton</code>, <code>passcodeTextField</code>, <code>errorMessageLabel</code>、<code>profileImageView</code> 加上这个协议吧。<br>对了，还有 pop</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Poppable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Poppable</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">UIView</span> </span>&#123;</div><div class="line"> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> &#123; <span class="comment">// Pop Animation Logic &#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>好了现在可以开始写了</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableTextField</span>: <span class="title">UITextField</span>, <span class="title">Buzzable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableButton</span>: <span class="title">UIButton</span>, <span class="title">Buzzable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzableImageView</span>: <span class="title">UIImageView</span>, <span class="title">Buzzable</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzablePoppableLabel</span>: <span class="title">UILabel</span>, <span class="title">Buzzable</span>, <span class="title">Poppable</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line">  <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> passcodTextField: <span class="type">BuzzableTextField</span>!</div><div class="line">  <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loginButton: <span class="type">BuzzableButton</span>!</div><div class="line">  <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> errorMessageLabel: <span class="type">BuzzablePoppableLabel</span>!</div><div class="line">  <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> profileImageView: <span class="type">BuzzableImageView</span>!</div><div class="line">  </div><div class="line">  <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">didTabLoginButton</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</div><div class="line">    passcodTextField.buzz()</div><div class="line">    loginButton.buzz()</div><div class="line">    errorMessageLabel.buzz()</div><div class="line">    errorMessageLabel.pop()</div><div class="line">    profileImageView.buzz()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最方便的事情是我们都不需要使用子类就可能给任何的 UI 组件添加 pop 这个方法了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class MyImageView: UIImageVIew, Buzzable, Poppable</div></pre></td></tr></table></figure>
+<p>现在，类的名称就可以变的更加的灵活了。因为你已经知道了这些协议的方法，并且这些协议也描述了这些类，所以也不用 <code>MyBuzzablePoppableProfileImage</code> 了。</p>
+<ul>
+<li>没有子类</li>
+<li>类名更灵活</li>
+<li>更 Swifty</li>
+</ul>
+<p><a href="https://github.com/CepheusSun/Translate/tree/master/demos/Protocol%20Oriented%20Programming%20View%20in%20Swift%203" target="_blank" rel="external">SourceCode</a></p>
+<h3 id="That’s-it"><a href="#That’s-it" class="headerlink" title="That’s it!"></a>That’s it!</h3><p><a href="https://blog.bobthedeveloper.io/protocol-oriented-programming-view-in-swift-3-8bcb3305c427" target="_blank" rel="external">原文地址</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;学习如何在不创建一大堆类的前提下做按钮、label、图片的动画。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;掌握了足够的知识而不去使用它, 就像你长了满口的牙齿, 但是成天都喝牛奶一样。 掌握了足够的理论知识, 在项目中怎么使用 POP 呢？🤔&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="POP" scheme="https://CepheusTeam.github.io/categories/POP/"/>
+    
+    
+      <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
+    
+      <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
+    
+      <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="POP" scheme="https://CepheusTeam.github.io/tags/POP/"/>
+    
+  </entry>
   
   <entry>
     <title>Introduction to Protocol Oriented Programming in Swift</title>
@@ -175,11 +256,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
@@ -253,11 +334,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
@@ -344,11 +425,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
@@ -478,11 +559,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
@@ -618,11 +699,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
@@ -707,11 +788,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
       <category term="设计模式" scheme="https://CepheusTeam.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -780,11 +861,11 @@
     
       <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
     
-      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
-    
       <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
     
       <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="Reactive" scheme="https://CepheusTeam.github.io/tags/Reactive/"/>
     
   </entry>
   
