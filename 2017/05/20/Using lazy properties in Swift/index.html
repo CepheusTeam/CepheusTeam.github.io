@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="懒加载属于让你可以在需要的时候才初始化, 而不是在初始化这个对象的时候就必须要。懒加载可以用来避免 optional 的使用, 当某个属性的初始化耗费很多资源的时候会提升性能。当然使用懒加载也能让对象的初始化方法看起来很清爽, 因为某些设置会在这个对象的生命周期中被推迟。
+这周我们来学习一下 Swift 中懒加载的定义, 以及使用。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="CepheusSun">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Using lazy properties in Swift"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Cepheus"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Using lazy properties in Swift - Cepheus</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="Cepheus">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="Cepheus">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Using lazy properties in Swift</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-05-20</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-apple"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>懒加载属于让你可以在需要的时候才初始化, 而不是在初始化这个对象的时候就必须要。懒加载可以用来避免 optional 的使用, 当某个属性的初始化耗费很多资源的时候会提升性能。当然使用懒加载也能让对象的初始化方法看起来很清爽, 因为某些设置会在这个对象的生命周期中被推迟。</p>
+<p>这周我们来学习一下 Swift 中懒加载的定义, 以及使用。</p>
+<a id="more"></a>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>定义一个懒加载属性最简单的办法就是在 <code>var</code> 前加一个 <code>lazy</code> 关键字, 并且还要给 出默认的值。这个默认值会在这个属性被第一次访问的时候被指定, 也就是说在这个对象的初始化方法中这个就不需要再去初始化这个属性了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileLoader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> cahce = <span class="type">Cache</span>&lt;<span class="type">File</span>&gt;()</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadFile</span><span class="params">(name name: String)</span></span> <span class="keyword">throws</span> -&gt; <span class="type">File</span> &#123;</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedFile = cahce[name] &#123;</div><div class="line">            <span class="keyword">return</span> cachedFile</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">let</span> file = <span class="keyword">try</span> loadFileFromDisk(fileName: name)</div><div class="line">        cahce[name] = file</div><div class="line">        <span class="keyword">return</span> file</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用工厂方法"><a href="#使用工厂方法" class="headerlink" title="使用工厂方法"></a>使用工厂方法</h3><p>有些时候我们可能需要在这个属性在懒加载的时候设置一些东西, 只是简单的使用它的初始化方法可能就没有那么方便了。这种情况下, 更方便的方法是把这个属性的初始化代理给一个工厂方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scene</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> eventManager: <span class="type">EventManager</span> = <span class="keyword">self</span>.makeEventManager()</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">makeEventManager</span><span class="params">()</span></span> -&gt; <span class="type">EventManager</span>&#123;</div><div class="line">        <span class="keyword">let</span> manager = <span class="type">EventManager</span>()</div><div class="line">        <span class="keyword">return</span> manager</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你不希望你的类里面全是各种 <code>make..()</code> 这类工厂方法, 你可以把这些方法放在一个专门的 <code>extension</code> 中</p>
+<h3 id="使用自执行闭包"><a href="#使用自执行闭包" class="headerlink" title="使用自执行闭包"></a>使用自执行闭包</h3><p>除了使用工厂方法来返回这个属性值以外, 你也可以选择在这个属性声明的地方通过一个自执行的闭包来出初始化这个属性。我们看看上面这个情况, 我们应该怎么做吧！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> eventManager: <span class="type">EventManager</span> = &#123;</div><div class="line">   <span class="keyword">let</span> manager = <span class="type">EventManager</span>()</div><div class="line">    <span class="keyword">return</span> manager</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+<p>这要做有一个好处: 让这个属性的在同一个地方声明和设置。当然阅读这些代码可能会比较不爽。特别是在这个属性的设置需要很长的代码的时候。我自己的规则是当这个属性的初始化方法只有两三行代码的时候。就是使用这样的方法来初始化懒加载属性。</p>
+<h3 id="使用静态工厂方法"><a href="#使用静态工厂方法" class="headerlink" title="使用静态工厂方法"></a>使用静态工厂方法</h3><p>对于那些设置起来更复杂属性, 把这些代码放到其他的类中, 会是更好的办法。这么做, 可以让这个类更加专注于它自己的职责, 让这个类不至于那么复杂。当然这也可以在不使用子类的条件下, 在多个类中共享代码。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> actionButton: <span class="type">UIButton</span> = <span class="type">ViewFactory</span>.makeActionButton()</div></pre></td></tr></table></figure>
+<p>在这个例子中, <code>ViewFactory</code> 这个类包含了这个 <code>controller</code> 中所有控件的初始化方法。不用引入更多的类, 也不用让继承树变复杂。如果我们希望在另外一个 <code>controller</code> 中使用这个按钮, 也只需要调用同一个 API 就好了 <code>ViewFactory.makeActionButton()</code></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>可能有人会问, 有没有什么大一统的方法来使用懒加载呢？ 个人认为没有. 写代码就是这样, 选择最合适的方法来处理不同的业务需求才是最正确的做法。而且我自己也在日常开发中使用上面所有的方法。</p>
+<p>Twitter 又一个问题: 使用不同的方法, 对编译时间有什么影响呢？我做了一些基本的测试, 并没有发现这其中有什么差别。当然这也跟这个懒加载属性有关。</p>
+<p>Thanks for reading! 🚀</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a> <a class="fw3 ph1 dib" href="/tags/Swift/">#Swift</a> <a class="fw3 ph1 dib" href="/tags/翻译/">#翻译</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="CepheusSun">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            My name is Jonathan Klughertz and this is my blog.<br>I am a full stack software engineer with a strong front-end focus.<br> I currently live and work in Singapore, hit me up if you are in the region.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
+    
+        <p>
+            <a href="/categories/Swift/">Swift</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2017/05/20/Picking the right way of failing in Swift/">Picking the right way of failing in Swift</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/20/Using lazy properties in Swift/">Using lazy properties in Swift</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/14/Protocol Oriented Programming View in Swift 3/">Protocol Oriented Programming View in Swift 3</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/14/Introduction to Protocol Oriented Programming in Swift/">Introduction to Protocol Oriented Programming in S</a>
+        </p>
+    
+        <p>
+            <a href="/2017/05/07/RxSwift MVVM API Manual/">RxSwift MVVM API Manual 📃</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://CepheusSun.com/" target="_blank">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://weibo.com/2453750463/profile?rightmod=1&wvr=6&mod=personinfo/" target="_blank">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/CepheusSun_/" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/CepheusTeam/Translate/" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:cd_sunyang@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @CepheusTeam. All right reserved
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

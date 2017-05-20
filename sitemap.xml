@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://CepheusTeam.github.io/2017/05/20/Using%20lazy%20properties%20in%20Swift/</loc>
+    
+    <lastmod>2017-05-20T04:37:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://CepheusTeam.github.io/2017/05/20/Picking%20the%20right%20way%20of%20failing%20in%20Swift/</loc>
+    
+    <lastmod>2017-05-20T04:37:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://CepheusTeam.github.io/2017/05/14/Protocol%20Oriented%20Programming%20View%20in%20Swift%203/</loc>
     
     <lastmod>2017-05-14T14:27:21.000Z</lastmod>
@@ -37,6 +51,13 @@
   </url>
   
   <url>
+    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20Safety%20Manual/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20For%20Dummies%20Part3/</loc>
     
     <lastmod>2017-05-13T04:13:32.000Z</lastmod>
@@ -45,13 +66,6 @@
   
   <url>
     <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20MVVM%20API%20Manual/</loc>
-    
-    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20Safety%20Manual/</loc>
     
     <lastmod>2017-05-13T04:13:32.000Z</lastmod>
     
