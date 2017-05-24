@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://CepheusTeam.github.io/2017/05/24/Swift%20Syntax%20Cheat%20Codes/</loc>
+    
+    <lastmod>2017-05-24T03:25:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://CepheusTeam.github.io/2017/05/20/Using%20lazy%20properties%20in%20Swift/</loc>
     
     <lastmod>2017-05-20T04:37:17.000Z</lastmod>
@@ -51,6 +58,13 @@
   </url>
   
   <url>
+    <loc>https://CepheusTeam.github.io/2017/05/05/RxSwift%20and%20the%20awesome%20things%20you%20can%20do%20with%20Reactive%20Programming%E2%80%8A%E2%80%94%E2%80%8APart%20I/</loc>
+    
+    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20Safety%20Manual/</loc>
     
     <lastmod>2017-05-13T04:13:32.000Z</lastmod>
@@ -66,13 +80,6 @@
   
   <url>
     <loc>https://CepheusTeam.github.io/2017/05/07/RxSwift%20MVVM%20API%20Manual/</loc>
-    
-    <lastmod>2017-05-13T04:13:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://CepheusTeam.github.io/2017/05/05/RxSwift%20and%20the%20awesome%20things%20you%20can%20do%20with%20Reactive%20Programming%E2%80%8A%E2%80%94%E2%80%8APart%20I/</loc>
     
     <lastmod>2017-05-13T04:13:32.000Z</lastmod>
     

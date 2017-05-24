@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://CepheusTeam.github.io/"/>
-  <updated>2017-05-20T04:37:11.000Z</updated>
+  <updated>2017-05-24T03:25:06.000Z</updated>
   <id>https://CepheusTeam.github.io/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Swift Syntax Cheat Codes</title>
+    <link href="https://CepheusTeam.github.io/2017/05/24/Swift%20Syntax%20Cheat%20Codes/"/>
+    <id>https://CepheusTeam.github.io/2017/05/24/Swift Syntax Cheat Codes/</id>
+    <published>2017-05-23T16:05:23.000Z</published>
+    <updated>2017-05-24T03:25:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章主要介绍一些很常见的语法。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">() -&gt; <span class="type">Void</span></div></pre></td></tr></table></figure>
+<p>也叫做 <code>匿名函数</code>。闭包是自包含的函数代码块，可以在代码中被传递和使用。在 <code>C</code> 和 <code>OC</code> 中有 <code>block</code> 与之对应。</p>
+<p>如果你之前就有 iOS 开发经验, 你肯定看到过 UIView 动画的 API</p>
+<a id="more"></a>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">animate</span>(<span class="title">withDuration</span> <span class="title">duration</span>: <span class="title">NSTimeInterval</span>,</span></div><div class="line"> <span class="title">animations</span>: @<span class="title">escaping</span>() -&gt; <span class="title">Void</span>)</div></pre></td></tr></table></figure>
+<p><code>animations</code>就是动画的参数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animate(withDuration: <span class="number">10.0</span>, animations: &#123;</div><div class="line">    button.alpha = <span class="number">0</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><code>animationWithDuration</code> 方法就会使用这个闭包做一件事情:让button慢慢的消失。</p>
+<h3 id="尾随闭包"><a href="#尾随闭包" class="headerlink" title="尾随闭包"></a>尾随闭包</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animate(withDuration: <span class="number">10.0</span>) &#123; </div><div class="line">    button.alpha = <span class="number">0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是 Swift 的特性之一, 这样可以节省一些没什么必要存在的代码。看这段的代码, 跟上面的代码调用的是同一个 API, 只是这段代码使用了更简洁的语法。</p>
+<p>因为 <code>animate</code> 这个方法的最后一个参数是一个闭包—<strong>尾随闭包</strong>。尾随闭包允许我们在编码的时候省略掉最后的参数名, 并让他从参数列表那个括号里面移出来。这样会让代码更优雅简洁。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">say</span><span class="params">(<span class="number">_</span> message: String, completion: @escaping <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</div><div class="line">    <span class="built_in">print</span>(message)</div><div class="line">    completion()</div><div class="line">&#125;</div><div class="line"><span class="comment">// 没有使用尾随闭包</span></div><div class="line">say(<span class="string">"Hello"</span>, completion: &#123;</div><div class="line">    <span class="comment">// prints: "Hello" </span></div><div class="line">    <span class="comment">// Do some other stuff</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">// 使用了尾随闭包</span></div><div class="line">say(<span class="string">"Hello"</span>) &#123;</div><div class="line">    <span class="comment">// prints: "Hello"</span></div><div class="line">    <span class="comment">// Do some other stuff</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typealias</span></div></pre></td></tr></table></figure>
+<p>类型别名是一个很有用的小工具, 能尽可能少的减少重复代码。看下面的例子:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dance</span><span class="params">(<span class="keyword">do</span>:<span class="params">(Int, String, Double)</span></span></span> -&gt; (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>)) &#123;&#125;</div></pre></td></tr></table></figure>
+<p>这段代码的功能其实很简单, 但是如果在其他方法中也需要传递这个闭包的话, 我们就应该记住这个闭包, 并且保证在任何我们使用它的地方都是一致的, 不然编译器可能就不高兴了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dance</span><span class="params">(<span class="keyword">do</span>: <span class="params">(Int, String, Double)</span></span></span> -&gt; (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>)) &#123; &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">sing</span><span class="params">(<span class="keyword">do</span>: <span class="params">(Int, String, Double)</span></span></span> -&gt; (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>)) &#123; &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">act</span><span class="params">(<span class="keyword">do</span>: <span class="params">(Int, String, Double)</span></span></span> -&gt; (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>)) &#123; &#125;</div></pre></td></tr></table></figure>
+<p>但是如果某个时刻我们需要修改一下这个闭包。这就尴尬了, 上面三个方法都需要去修改。 这就是使用<strong>类型别名</strong>的场景。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typealias</span> <span class="type">TripleThreat</span> = (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>) -&gt; (<span class="type">Int</span>, <span class="type">String</span>, <span class="type">Double</span>)</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dance</span><span class="params">(dance: TripleThreat)</span></span> &#123; &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">act</span><span class="params">(act: TripleThreat)</span></span> &#123; &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">sing</span><span class="params">(sing: TripleThreat)</span></span> &#123; &#125;</div></pre></td></tr></table></figure>
+<p>这样写的话, 只要我们需要修改这个闭包的时候, 就只需要修改一个地方了。</p>
+<p><strong>喜闻乐见的类型别名</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">typealias Void = ()</div><div class="line">typealias NSTimeInterval = Double</div></pre></td></tr></table></figure>
+<h3 id="参数名缩写"><a href="#参数名缩写" class="headerlink" title="参数名缩写"></a>参数名缩写</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$<span class="number">0</span>,$<span class="number">1</span>,$<span class="number">2</span></div></pre></td></tr></table></figure>
+<p>一个闭包内有参数的情况下, 你可以在闭包定义中省略参数列表，并且对应参数名称缩写的类型会 通过函数类型进行推断。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">say</span><span class="params">(<span class="number">_</span> message: String, completion: <span class="params">(<span class="number">_</span> goodbye: String)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</div><div class="line">    <span class="built_in">print</span>(message)</div><div class="line">    completion(<span class="string">"Goodbye"</span>)</div><div class="line">&#125;</div><div class="line">...</div><div class="line">say(<span class="string">"Hi"</span>) &#123; (goodbye: <span class="type">String</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="built_in">print</span>(goodbye)</div><div class="line">&#125;</div><div class="line"><span class="comment">// prints: "Hi"</span></div><div class="line"><span class="comment">// prints: "Goodbye"</span></div></pre></td></tr></table></figure>
+<p>这个例子中，这个尾随闭包有一个 <code>String</code> 类型的 <code>goodbye</code> 参数。Xcode 会自动把它放在一个元组里面。用 <code>in</code> 来表示参数、返回值的结束。并另起一行来实现我们想要的功能。当这个闭包很小的时候，这样写就显得代码非常的冗长了。我们来改造一下段代码。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(goodbye: <span class="type">String</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div></pre></td></tr></table></figure>
+<p>这段代码完全没有必要写出来。使用参数名缩写就好了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">say(<span class="string">"Hi"</span>) &#123; <span class="built_in">print</span>($<span class="number">0</span>) &#125;</div><div class="line"><span class="comment">// prints: "Hi"</span></div><div class="line"><span class="comment">// prints: "Goodbye"</span></div></pre></td></tr></table></figure>
+<p>你看, 这样写完全省略掉了闭包的参数还有返回值声明的代码。因为在这个场景中，我们完全没有必要使用参数名。每个参数都按照声明的顺序命名好了。这么简单, 直接放在一行代码里就可以了。</p>
+<p>如果有不止一个参数的时候应该怎么弄呢？我也不想解释了, 直接看下面的代码: </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(goodbye: <span class="type">String</span>, name: <span class="type">String</span>, age: <span class="type">Int</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line"><span class="comment">// $0: goodbye</span></div><div class="line"><span class="comment">// $1: name</span></div><div class="line"><span class="comment">// $2: age</span></div></pre></td></tr></table></figure>
+<h3 id="返回-Self"><a href="#返回-Self" class="headerlink" title="返回 Self"></a>返回 Self</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-&gt; <span class="type">Self</span></div></pre></td></tr></table></figure>
+<p>Swift2.0 带来的一大堆操作符(map, flatmap), 这些操作符更给力的是让我们能够使用 <code>.</code> 语法链式的调用一系列方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span> , <span class="number">2</span>, <span class="number">3</span>, <span class="literal">nil</span>, <span class="number">5</span>]</div><div class="line">    .flatMap &#123;$<span class="number">0</span>&#125;    <span class="comment">// 移除空</span></div><div class="line">    .<span class="built_in">filter</span> &#123;$<span class="number">0</span> &lt; <span class="number">3</span>&#125; <span class="comment">// 过滤大于2的值</span></div><div class="line">    .<span class="built_in">map</span> &#123;$<span class="number">0</span> * <span class="number">100</span>&#125;  <span class="comment">// 每个值放大100倍</span></div><div class="line"><span class="comment">// [100, 200]</span></div></pre></td></tr></table></figure>
+<p>这样太优雅了, 既可读又易于理解。</p>
+<p>假设我们为<code>String</code>建一个扩展, 在字符串的本身上执行一些操作, 而不使函数返回 <code>Void</code> 而是他自己.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// extension UIView</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">with</span><span class="params">(backgroundColor: UIColor)</span></span> -&gt; <span class="type">Self</span> &#123;</div><div class="line">    backgroundColor = color</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">with</span><span class="params">(cornerRadius: CGFloat)</span></span> -&gt; <span class="type">Self</span> &#123;</div><div class="line">    layer.cornerRadius = <span class="number">3</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> view = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">10</span>, height: <span class="number">10</span>))</div><div class="line">          .with(backgroundColor: .black)</div><div class="line">          .with(cornerRadius: <span class="number">3</span>)</div></pre></td></tr></table></figure>
+<h3 id="That’s-it"><a href="#That’s-it" class="headerlink" title="That’s it!"></a>That’s it!</h3><p><a href="https://medium.com/swift-programming/swift-syntax-cheat-codes-9ce4ab4bc82e" target="_blank" rel="external">原文地址</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我是一名来自中国的 iOS 程序员, 对技术有着浓厚的兴趣, 在学习的过程中, 发现了很多来自国外的优秀博客。为了更好的学习这些文章, 产生了将这些文章翻译成中文的想法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章主要介绍一些很常见的语法。&lt;/p&gt;
+&lt;h3 id=&quot;闭包&quot;&gt;&lt;a href=&quot;#闭包&quot; class=&quot;headerlink&quot; title=&quot;闭包&quot;&gt;&lt;/a&gt;闭包&lt;/h3&gt;&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;() -&amp;gt; &lt;span class=&quot;type&quot;&gt;Void&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也叫做 &lt;code&gt;匿名函数&lt;/code&gt;。闭包是自包含的函数代码块，可以在代码中被传递和使用。在 &lt;code&gt;C&lt;/code&gt; 和 &lt;code&gt;OC&lt;/code&gt; 中有 &lt;code&gt;block&lt;/code&gt; 与之对应。&lt;/p&gt;
+&lt;p&gt;如果你之前就有 iOS 开发经验, 你肯定看到过 UIView 动画的 API&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Swift" scheme="https://CepheusTeam.github.io/categories/Swift/"/>
+    
+    
+      <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
+    
+      <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
+    
+      <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
   
   <entry>
     <title>Picking the right way of failing in Swift</title>
