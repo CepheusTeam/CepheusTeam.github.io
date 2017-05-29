@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://CepheusTeam.github.io/"/>
-  <updated>2017-05-24T03:25:06.000Z</updated>
+  <updated>2017-05-29T17:05:38.000Z</updated>
   <id>https://CepheusTeam.github.io/</id>
   
   <author>
@@ -14,6 +14,128 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Swifty Tips ⚡️</title>
+    <link href="https://CepheusTeam.github.io/2017/05/30/Swifty%20Tips/"/>
+    <id>https://CepheusTeam.github.io/2017/05/30/Swifty Tips/</id>
+    <published>2017-05-29T16:05:23.000Z</published>
+    <updated>2017-05-29T17:05:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Swift 开发中的一些小的技巧</p>
+<p>刚开始的时候, 特别好奇大厂是怎么搞的, 他们的项目长什么样子, 他们用哪些库…想在巨人的肩膀上开发, 免得浪费时间在那些已经有很好解决方案的事情上。</p>
+<p>四年前，我和团队中很多很厉害的人讨论过一些编程实践。今天就分享一些东西吧。</p>
+<p>欢迎指正！🚀</p>
+<h2 id="滥用引用类型"><a href="#滥用引用类型" class="headerlink" title="滥用引用类型"></a>滥用引用类型</h2><p>只有“动态”对象才使用引用类型。这里的“动态”对象是什么呢？看下面的代码:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Car</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> model: <span class="type">String</span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarManager</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> cars: [<span class="type">Car</span>]</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fetchCars</span><span class="params">()</span></span> &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">registerCar</span><span class="params">(<span class="number">_</span> car: Car)</span></span> &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>🚗 在这里只是一个值。他代表的就是一些数据。就像 <code>1</code>、<code>2</code>、<code>3</code>。 这种数据是“静态”的数据(死的)。 它不会处理任何东西, 所以它也没有必要是“动态”的, 也就是说, 没必要把它定义成引用类型。</p>
+<p><strong>另一方面:</strong></p>
+<p><code>CarManager</code> 就需要是一个“动态”的对象。因为这个对象会发起网络请求, 然后将请求结果保存起来。在值类型对象中是不能执行异步任务的, 因为他们是“静态”的数据。我们需要的 <code>CarManager</code> 对象在一定的范围内是应该是动态的, 他会请求数据, 也会注册新的 <code>Car</code>。</p>
+<p>这个主题完全可以写一篇文章来深入。推荐看看 <a href="https://news.realm.io/news/andy-matuschak-controlling-complexity/" target="_blank" rel="external">Andy Matuschak 的文章</a>, 和 <a href="https://developer.apple.com/videos/play/wwdc2015/414/" target="_blank" rel="external">WWDC</a></p>
+<h2 id="隐式解包可选类型"><a href="#隐式解包可选类型" class="headerlink" title="隐式解包可选类型(!)"></a>隐式解包可选类型(<code>!</code>)</h2><p>默认不要隐式解包可选类型。 在大多数场景中你都可能会忘掉这件事情。但是在一些特殊情况下应该这样做来减少编译器的压力。而且我们也需要去理解这件事情背后的逻辑。</p>
+<p>基本上, 如果这个属性在初始化的过程中必须为 <code>nil</code> 但是之后就会被赋值,  就可以定义这个属性为 optional。因为你肯定不会在赋值之前访问这个属性, 如果编译器一直警告这个值可能为 <code>nil</code> 真的挺讨厌的。</p>
+<p>看看xib中拖出来的属性:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeView</span>: <span class="title">UIView</span> </span>&#123;</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">let</span> nameLabel: <span class="type">UILabel</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果这样定义的话, 编译器就会让你在初始化方法中给<code>nameLabel</code>赋值。因为这行代码告诉编译器这个 <code>View</code> 无论什么时候都有 <code>nameLabel</code>。 但是, 有病啊！肯定不能这么干啊。因为其实在 <code>initWithCoder</code> 中已经帮我们实现了 <code>xib</code> 中的 <code>label</code> 和这个属性之间的关联。明白了吗？ 这个值永远都不可能为空, 就没有必要判断这个东西是不是存在了。所以也不需要去赋值了啊。</p>
+<blockquote>
+<p>你:这玩意儿肯定不可能是空, 别瞎几把报错了<br>编译器: 好的!</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeView</span>: <span class="title">UIView</span> </span>&#123;</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">var</span> nameLabel: <span class="type">UILabel</span>!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Q:</strong> 在dequeue一个tableviewCell 的时候能不能(<code>!</code>)?<br><strong>A:</strong> 还是不要吧！至少给一个 Crash 啊</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">guard</span> <span class="keyword">let</span> cell = tableView.dequeueCell(...) <span class="keyword">else</span> &#123;</div><div class="line">    <span class="built_in">fatalError</span>(<span class="string">"Cannot dequeue cell with identifier <span class="subst">\(cellID)</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="滥用-AppDelegate"><a href="#滥用-AppDelegate" class="headerlink" title="滥用 AppDelegate"></a>滥用 AppDelegate</h2><p><code>AppDelegate</code> 不是拿来给你做保存全局变量的容器的(全局属性、工具方法、管理类等等。)他只是一个用来实现一些协议的类而已。放过它吧！</p>
+<p>在 <code>applicationDidFinishLaunching</code> 方法里肯定都会做一些很重要的事情, 但是当项目不断变大的时候这种情况很容易变的很恐怖。创建新的类(文件)来做这些事情吧！</p>
+<p><strong>👎 Don’t:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> persistentStoreCoordinator: <span class="type">NSPersistentStoreCoordinator</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">rgb</span><span class="params">(r: CGFloat, g: CGFloat, b: CGFloat)</span></span> -&gt; <span class="type">UIColor</span> &#123; ... &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">appDidFinishLaunching</span>... </span>&#123;</div><div class="line">    <span class="type">Firebase</span>.setup(<span class="string">"3KDSF-234JDF-234D"</span>)</div><div class="line">    <span class="type">Firebase</span>.logLevel = .verbose</div><div class="line">    <span class="type">AnotherSDK</span>.start()</div><div class="line">    <span class="type">AnotherSDK</span>.enableSomething()</div><div class="line">    <span class="type">AnotherSDK</span>.disableSomething()</div><div class="line">    <span class="type">AnotherSDK</span>.anotherConfiguration()</div><div class="line">    persistentStoreCoordinator = ...</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>👍 Do:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">appDidFinishLaunching</span>... </span>&#123;</div><div class="line">    <span class="type">DependencyManager</span>.configure()</div><div class="line">    <span class="type">CoreDataStack</span>.setup()</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>给一个方法的某些参数设置默认值是非常方便的事情。如果没有这个特性的话, 可能就需要给同一个功能写好几个方法了。像下面一样:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">(<span class="number">_</span> string: String, options: String?)</span></span> &#123; ... &#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">(<span class="number">_</span> string: String)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(string, options: <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果有默认参数值, 就可以是这样的:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">(<span class="number">_</span> string: String, options: String? = <span class="literal">nil</span>)</span></span> &#123;...&#125;</div></pre></td></tr></table></figure>
+<p>很简单对吧！ 给自定义 UI 组件设置默认颜色、提供默认的参数、给网络请求添加默认的超时时间等等。但是, 使用这个语法糖在遇到依赖注入的时候就要小心了。</p>
+<p>看下面的例子:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TicketsViewModel</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> service: <span class="type">TicketService</span></div><div class="line">    <span class="keyword">let</span> database: <span class="type">TicketDatabase</span></div><div class="line">    <span class="keyword">init</span>(service: <span class="type">TicketService</span>,</div><div class="line">       database: <span class="type">TicketDatabase</span>) &#123; ... &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 App target:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> model = <span class="type">TicketsViewModel</span>(</div><div class="line">  service: <span class="type">LiveTicketService</span>()</div><div class="line">  database: <span class="type">LiveTicketDatabase</span>()</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>在 Test target:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> model = <span class="type">TicketsViewModel</span>(</div><div class="line">    service: <span class="type">MockTicketService</span>()</div><div class="line">    database: <span class="type">MockTicketDatabase</span>()</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>在这里使用协议的原因就是把这些功能从具体的类中抽象出来。这就使得你可以向这个 <code>viewModel</code> 中注入任何你想要的具体实现。 如果这里你把 <code>LiveTicketService</code> 作为默认的参数, 这就使得<code>TicketsViewModel</code> 依赖了 <code>LiveTicketService</code>这么一个具体的类型。这跟最初想要达到的目的有了一些冲突。</p>
+<p><strong>现在没那么方便了吧？</strong></p>
+<p>想象一下在你 App 还有 Test 两个 target 中。 <code>TicketsViewModel</code> 会被同时添加到两个 target 中, 然后把 <code>LiveTicketService</code> 和 <code>MockTicketService</code> 分别添加。如果 <code>TicketsViewModel</code>添加了对 <code>LiveTicketService</code> 的依赖。 Test target 肯定就编译不过了。</p>
+<h2 id="可变参数函数"><a href="#可变参数函数" class="headerlink" title="可变参数函数"></a>可变参数函数</h2><p>这… 就是很爽啊！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(<span class="number">_</span> numbers: Int...)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> numbers.<span class="built_in">reduce</span>(<span class="number">0</span>, +)</div><div class="line">&#125;</div><div class="line">sum(<span class="number">1</span>,<span class="number">2</span>)      <span class="comment">// 3</span></div><div class="line">sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)    <span class="comment">// 6</span></div><div class="line">sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)  <span class="comment">// 10</span></div></pre></td></tr></table></figure>
+<h2 id="使用类型嵌套"><a href="#使用类型嵌套" class="headerlink" title="使用类型嵌套"></a>使用类型嵌套</h2><p>Swift 支持内部类。所以有用就可以这么做：</p>
+<p><strong>👎 Don’t:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PhotoCollectionViewCellStyle</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> <span class="keyword">default</span></div><div class="line">    <span class="keyword">case</span> photoOnly</div><div class="line">    <span class="keyword">case</span> photoAndDescription</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个枚举可能在 <code>PhotoCollectionViewCell</code> 之外就不会再使用到了。没理由把这个枚举声明成全局的。</p>
+<p><strong>👍 Do:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PhotoCollectionViewCell</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Style</span> </span>&#123;</div><div class="line">        <span class="keyword">case</span> <span class="keyword">default</span></div><div class="line">        <span class="keyword">case</span> photoOnly</div><div class="line">        <span class="keyword">case</span> photoAndDescription</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> style: <span class="type">Style</span> = .<span class="keyword">default</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这很容易理解, 毕竟 <code>Style</code> 本来就是用来标记 <code>PhotoCollectionViewCell</code> 的。而且还少了23个字符呢。</p>
+<h2 id="使用-final-关键字-🏁"><a href="#使用-final-关键字-🏁" class="headerlink" title="使用 final 关键字 🏁"></a>使用 final 关键字 🏁</h2><p>如果你不需要拓展某些类, 也不希望这些类被拓展, 使用 <code>final</code> 修饰它。不用担心犯错, 比如 <code>PhotoCollectionViewCell</code> 这个类, 你还有可能继承它吗？</p>
+<p>而且:<strong>这么做可以节约编译时间。</strong></p>
+<h2 id="给常量命名空间"><a href="#给常量命名空间" class="headerlink" title="给常量命名空间"></a>给常量命名空间</h2><p>在 OC 中是通过在全局的常量前面加 <code>PFX</code> 或者 <code>k</code> 来给这些常量命名空间的。但是 Swift 可不这样。</p>
+<p><strong>👎 Don’t:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> ket kAnimationDuration: <span class="type">TimeInterval</span> = <span class="number">0.3</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">let</span> kLowAlpha = <span class="number">0.2</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">let</span> kAPIKey = <span class="string">"13511-5234-5234-59234"</span></div></pre></td></tr></table></figure>
+<p><strong>👍 Do:</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Constant</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">UI</span> </span>&#123;</div><div class="line">        <span class="keyword">static</span> <span class="keyword">let</span> animationDuration: <span class="type">TimeInterval</span> = <span class="number">0.3</span></div><div class="line">        <span class="keyword">static</span> <span class="keyword">let</span> lowAlpha: <span class="type">CGFloat</span> = <span class="number">0.2</span>  </div><div class="line">    &#125;</div><div class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Analytics</span> </span>&#123;</div><div class="line">        <span class="keyword">static</span> <span class="keyword">let</span> apiKey = <span class="string">"13511-5234-5234-59234"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我个人的偏好是使用 <code>C</code> 来代替 <code>Constant</code>, 他已经够清晰了。这个可以看你自己喜欢了。</p>
+<p><strong>Before:</strong> <code>kAnimationDuration</code> 或者 <code>kAnalyticsAPIKey</code><br><strong>After:</strong> <code>C.UI.animationDuration</code> 或者 <code>C.Analytics.apiKey</code></p>
+<h2 id="的使用"><a href="#的使用" class="headerlink" title="_ 的使用"></a><code>_</code> 的使用</h2><p><code>_</code> 是对没有使用到的变量的占位符。他就是告诉编译器”这个值是什么不重要”。 不然编译器会有警告⚠️。</p>
+<p><strong>👎 Don’t</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="number">_</span> = name &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Name is not nil."</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>optional</code>就像一个盒子。可以直接看他是不是空的, 没必要每次都把里面的东西拿出来。</p>
+<p><strong>👍 Do:</strong></p>
+<ul>
+<li>判空</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> name != <span class="literal">nil</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Name is not nil."</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>返回值没用</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">_</span> = manager.removeCar(car) <span class="comment">// 成功返回true</span></div></pre></td></tr></table></figure>
+<ul>
+<li>ConpletionHandler</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service.fetchItems &#123;data, error , <span class="number">_</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 第三个参数我不在乎他是什么</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="方法命名"><a href="#方法命名" class="headerlink" title="方法命名"></a>方法命名</h2><p>这点适用于所有需要人类去阅读的语言。代码总是不那么容易理解的, 不要浪费别人的精力。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.driving()</div></pre></td></tr></table></figure>
+<p>这是在干什么？</p>
+<ul>
+<li>是把 <code>driver</code> 标记成 <code>driving</code> 状态？</li>
+<li>还是检查 <code>driver</code> 是不是 <code>driving</code> 状态, 并且返回一个 <code>bool</code> 值？</li>
+</ul>
+<p><strong>如果要点进去看才知道这方法是干什么的, 这个命名就是失败了。</strong>多人协同开发或者处理遗留项目的时候, 你读别人代码的时间比你写代码的时间都要长。所以在命名的时候想着别让看你代码的人痛苦。</p>
+<h2 id="关于-print"><a href="#关于-print" class="headerlink" title="关于 print"></a>关于 print</h2><p>很严肃的说, 不要得到一个 <code>error</code> 或者 <code>response</code> 就在控制台打印出来。你这么做还不如不打印呢！搞得控制台一堆乱七八糟的东西看起来真的很爽吗？</p>
+<p><strong>Do:</strong></p>
+<ul>
+<li>在 <code>framework</code> 中使用 <code>error</code> 级的 <code>log level</code>。</li>
+<li>使用一些能够让你有不同输出级别的 log 库。<em>XGGLogger</em>、<em>SwiftyBeaver</em></li>
+<li>不要用 log 来 debug 了。Xcode 有很多有用的工具<a href="https://www.objc.io/issues/19-debugging/debugging-case-study/" target="_blank" rel="external">Debugging: A Case Study</a></li>
+</ul>
+<h2 id="没用的代码"><a href="#没用的代码" class="headerlink" title="没用的代码"></a>没用的代码</h2><p>经常在一些老项目里面见到被注释掉的代码, 但是出来没有通过把这些代码打开来解决过问题。所以, 既然这些代码都没有什么用了, 就删了它! 还能增加代码的可读性, 看起来整洁的代码总要让人舒服一些。</p>
+<p><strong>最后推荐一个好文<a href="https://medium.com/@gokselkoksal/swifty-tips-%EF%B8%8F-8564553ba3ec" target="_blank" rel="external">Using SwiftLint and Danger for Swift Best Practices</a></strong></p>
+<p><strong><a href="https://medium.com/@gokselkoksal/swifty-tips-%EF%B8%8F-8564553ba3ec" target="_blank" rel="external">原文地址</a></strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Swift 开发中的一些小的技巧&lt;/p&gt;
+&lt;p&gt;刚开始的时候, 特别好奇大厂是怎么搞的, 他们的项目长什么样子, 他们用哪些库…想在巨人的肩膀上开发, 免得浪费时间在那些已经有很好解决方案的事情上。&lt;/p&gt;
+&lt;p&gt;四年前，我和团队中很多很厉害的人讨论过一些编程实践。今天就分
+    
+    </summary>
+    
+      <category term="Swift" scheme="https://CepheusTeam.github.io/categories/Swift/"/>
+    
+    
+      <category term="iOS" scheme="https://CepheusTeam.github.io/tags/iOS/"/>
+    
+      <category term="Swift" scheme="https://CepheusTeam.github.io/tags/Swift/"/>
+    
+      <category term="翻译" scheme="https://CepheusTeam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
   
   <entry>
     <title>Swift Syntax Cheat Codes</title>
